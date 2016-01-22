@@ -1,0 +1,40 @@
+name: cookieApiWarp
+version: ${project.version}
+description: Warpplugin
+authors: [Kekshaus]
+main: de.kekshaus.cookieApi.warp.Warpplugin
+
+commands:
+  setwarp:
+    description: Set a Warp.
+  warp:
+    description: Teleport to a Warp.
+    aliases: [warpto, w]
+  warps:
+    description: Get Warplist.
+  delwarp:
+    description: Delete a Warp
+permissions:
+    cookieApi.warp.team:
+        description: Alle Team Permissions
+        children:
+            cookieApi.warp.user: true
+            cookieApi.warp.setwarp: true
+            cookieApi.warp.delwarp: true
+    cookieApi.warp.user:
+        description: Alle User Permissions
+        children:
+            cookieApi.warp.warp: true
+            cookieApi.warp.warps: true
+    cookieApi.warp.warp:
+        description: Teleport to warp
+        default: op
+    cookieApi.warp.setwarp:
+        description: Set warp
+        default: op
+    cookieApi.warp.warps:
+        description: Warplist
+        default: op
+    cookieApi.warp.delwarp:
+        description: Delwarp
+        default: op
