@@ -1,9 +1,7 @@
 package de.kekshaus.cookieApi.warp;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.kekshaus.cookieApi.bukkit.CookieApiBukkit;
 import de.kekshaus.cookieApi.warp.commands.DeleteWarpCommand;
 import de.kekshaus.cookieApi.warp.commands.SetWarpCommand;
 import de.kekshaus.cookieApi.warp.commands.WarpCommand;
