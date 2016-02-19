@@ -7,8 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.entity.Player;
 
-import de.kekshaus.cookieApi.bukkit.managerApi.WarpApi;
 import de.kekshaus.cookieApi.warp.Warpplugin;
+import de.kekshaus.cookieApi.warp.api.WPStreamOutApi;
 import de.kekshaus.cookieApi.warp.database.ConnectionInject;
 import net.md_5.bungee.api.ChatColor;
 
@@ -37,7 +37,7 @@ public class WarpPortalApi {
 					float yaw = Float.parseFloat(list.get(6));
 					float pitch = Float.parseFloat(list.get(7));
 
-					WarpApi.sendTeleportToWarpOut(player.getName(), server, world, x, y, z, yaw, pitch);
+					WPStreamOutApi.sendTeleportToWarpOut(player.getName(), server, world, x, y, z, yaw, pitch);
 
 					return;
 				} else {

@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 
 import de.kekshaus.cookieApi.bukkit.CookieApiBukkit;
 import de.kekshaus.cookieApi.bukkit.MessageDB;
-import de.kekshaus.cookieApi.bukkit.managerApi.OtherApi;
-import de.kekshaus.cookieApi.bukkit.managerApi.WarpApi;
 import de.kekshaus.cookieApi.warp.Warpplugin;
+import de.kekshaus.cookieApi.warp.api.WPStreamOutApi;
 import de.kekshaus.cookieApi.warp.database.ConnectionInject;
+import de.kekshaus.cookieApi.warp.database.WarpHASHDB;
 import net.md_5.bungee.api.ChatColor;
 
 public class WarpCommand implements CommandExecutor {
@@ -39,7 +39,7 @@ public class WarpCommand implements CommandExecutor {
 
 							if (ConnectionInject.isWarp(warpName)) {
 								if (!player.hasPermission("cookieApi.bypass")) {
-									OtherApi.lastLocation.put(player, player.getLocation());
+									WarpHASHDB.lastWarpLocation.put(player, player.getLocation());
 									player.sendMessage(MessageDB.TELEPORT_TIMER.replace("{TIME}",
 											String.valueOf(CookieApiBukkit.getWarmUpTime())));
 									Warpplugin.inst().getServer().getScheduler().runTaskLater(Warpplugin.inst(),
@@ -47,8 +47,8 @@ public class WarpCommand implements CommandExecutor {
 										@Override
 										public void run() {
 
-											Location loc = OtherApi.lastLocation.get(player);
-											OtherApi.lastLocation.remove(player);
+											Location loc = WarpHASHDB.lastWarpLocation.get(player);
+											WarpHASHDB.lastWarpLocation.remove(player);
 											if ((loc != null)
 													&& (loc.getBlock().equals(player.getLocation().getBlock()))) {
 												List<String> list = ConnectionInject.getWarp(warpName);
@@ -59,8 +59,8 @@ public class WarpCommand implements CommandExecutor {
 												double z = Double.parseDouble(list.get(5));
 												float yaw = Float.parseFloat(list.get(6));
 												float pitch = Float.parseFloat(list.get(7));
-												WarpApi.sendTeleportToWarpOut(player.getName(), server, world, x, y, z,
-														yaw, pitch);
+												WPStreamOutApi.sendTeleportToWarpOut(player.getName(), server, world, x,
+														y, z, yaw, pitch);
 
 												return;
 											} else {
@@ -79,7 +79,8 @@ public class WarpCommand implements CommandExecutor {
 									float yaw = Float.parseFloat(list.get(6));
 									float pitch = Float.parseFloat(list.get(7));
 
-									WarpApi.sendTeleportToWarpOut(player.getName(), server, world, x, y, z, yaw, pitch);
+									WPStreamOutApi.sendTeleportToWarpOut(player.getName(), server, world, x, y, z, yaw,
+											pitch);
 
 									return;
 								}
