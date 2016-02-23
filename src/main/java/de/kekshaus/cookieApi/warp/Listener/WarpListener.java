@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import de.kekshaus.cookieApi.bukkit.CookieApiBukkit;
-import de.kekshaus.cookieApi.bukkit.MessageDB;
+import de.kekshaus.cookieApi.bukkit.GlobalMessageDB;
 import de.kekshaus.cookieApi.warp.database.WarpHASHDB;
 
 public class WarpListener implements Listener {
@@ -38,7 +38,7 @@ public class WarpListener implements Listener {
 			@Override
 			public void run() {
 				WarpHASHDB.ignoreWarp.remove(p);
-				p.sendMessage(MessageDB.Teleport_Warp);
+				p.sendMessage(GlobalMessageDB.Teleport_Warp);
 			}
 		}, 20);
 

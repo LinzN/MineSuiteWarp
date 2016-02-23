@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import de.kekshaus.cookieApi.bukkit.MessageDB;
+import de.kekshaus.cookieApi.bukkit.GlobalMessageDB;
 import de.kekshaus.cookieApi.warp.Warpplugin;
 import de.kekshaus.cookieApi.warp.database.ConnectionInject;
 
@@ -40,7 +40,7 @@ public class DeleteWarpCommand implements CommandExecutor {
 				}
 			});
 		} else {
-			player.sendMessage(MessageDB.NO_PERMISSIONS);
+			player.sendMessage(GlobalMessageDB.NO_PERMISSIONS);
 
 		}
 		return false;

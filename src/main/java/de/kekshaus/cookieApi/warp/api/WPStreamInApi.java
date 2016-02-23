@@ -7,7 +7,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import de.kekshaus.cookieApi.bukkit.CookieApiBukkit;
-import de.kekshaus.cookieApi.bukkit.MessageDB;
+import de.kekshaus.cookieApi.bukkit.GlobalMessageDB;
 import de.kekshaus.cookieApi.bukkit.utils.LocationUtil;
 import de.kekshaus.cookieApi.warp.database.WarpHASHDB;
 
@@ -32,7 +32,7 @@ public class WPStreamInApi {
 					Location l = LocationUtil.getSafeDestination(p, t);
 					if (l != null) {
 						p.teleport(l);
-						p.sendMessage(MessageDB.Teleport_Warp);
+						p.sendMessage(GlobalMessageDB.Teleport_Warp);
 					} else {
 						p.sendMessage(ChatColor.RED + "Unable to find a safe location for teleport.");
 					}
@@ -41,7 +41,7 @@ public class WPStreamInApi {
 				}
 			} else {
 				p.teleport(t);
-				p.sendMessage(MessageDB.Teleport_Warp);
+				p.sendMessage(GlobalMessageDB.Teleport_Warp);
 			}
 		} else {
 			WarpHASHDB.pendingWarpLocations.put(player, t);

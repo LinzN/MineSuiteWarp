@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.kekshaus.cookieApi.bukkit.CookieApiBukkit;
-import de.kekshaus.cookieApi.bukkit.MessageDB;
+import de.kekshaus.cookieApi.bukkit.GlobalMessageDB;
 import de.kekshaus.cookieApi.warp.Warpplugin;
 import de.kekshaus.cookieApi.warp.api.WPStreamOutApi;
 import de.kekshaus.cookieApi.warp.database.ConnectionInject;
@@ -40,7 +40,7 @@ public class WarpCommand implements CommandExecutor {
 							if (ConnectionInject.isWarp(warpName)) {
 								if (!player.hasPermission("cookieApi.bypass")) {
 									WarpHASHDB.lastWarpLocation.put(player, player.getLocation());
-									player.sendMessage(MessageDB.TELEPORT_TIMER.replace("{TIME}",
+									player.sendMessage(GlobalMessageDB.TELEPORT_TIMER.replace("{TIME}",
 											String.valueOf(CookieApiBukkit.getWarmUpTime())));
 									Warpplugin.inst().getServer().getScheduler().runTaskLater(Warpplugin.inst(),
 											new Runnable() {
@@ -64,7 +64,7 @@ public class WarpCommand implements CommandExecutor {
 
 												return;
 											} else {
-												player.sendMessage(MessageDB.TELEPORT_MOVE_CANCEL);
+												player.sendMessage(GlobalMessageDB.TELEPORT_MOVE_CANCEL);
 											}
 										}
 									}, 20L * CookieApiBukkit.getWarmUpTime());
@@ -94,7 +94,7 @@ public class WarpCommand implements CommandExecutor {
 				}
 			});
 		} else {
-			player.sendMessage(MessageDB.NO_PERMISSIONS);
+			player.sendMessage(GlobalMessageDB.NO_PERMISSIONS);
 		}
 		return false;
 	}
