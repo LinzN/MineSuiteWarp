@@ -3,6 +3,9 @@ version: ${project.version}
 description: Warpplugin
 authors: [Kekshaus]
 main: de.kekshaus.cookieApi.warp.Warpplugin
+load: POSTWORLD
+depend: [CookieApiBukkit]
+
 
 commands:
   setwarp:
