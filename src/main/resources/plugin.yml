@@ -4,7 +4,7 @@ description: Warpplugin
 authors: [Kekshaus]
 main: de.kekshaus.cookieApi.warp.Warpplugin
 load: POSTWORLD
-depend: [CookieApiBukkit]
+depend: [cookieApiBukkit]
 
 
 commands:
