@@ -1,5 +1,5 @@
 name: cookieApiWarp
-version: ${project.version}
+version: ${project.version}.b${build.number}
 description: Warpplugin
 authors: [Kekshaus]
 main: de.kekshaus.cookieApi.warp.Warpplugin
