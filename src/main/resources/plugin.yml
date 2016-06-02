@@ -1,10 +1,10 @@
-name: cookieApiWarp
+name: XeonSuiteWarp
 version: ${project.version}.b${build.number}
 description: Warpplugin
 authors: [Kekshaus]
-main: de.kekshaus.cookieApi.warp.Warpplugin
+main: de.nlinz.xeonSuite.warp.Warpplugin
 load: POSTWORLD
-depend: [cookieApiBukkit]
+depend: [XeonSuiteBukkit]
 
 
 commands:

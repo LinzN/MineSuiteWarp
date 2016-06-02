@@ -1,4 +1,4 @@
-package de.kekshaus.cookieApi.warp.commands;
+package de.nlinz.xeonSuite.warp.commands;
 
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -11,12 +11,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import de.kekshaus.cookieApi.bukkit.CookieApiBukkit;
-import de.kekshaus.cookieApi.bukkit.GlobalMessageDB;
-import de.kekshaus.cookieApi.warp.Warpplugin;
-import de.kekshaus.cookieApi.warp.api.WPStreamOutApi;
-import de.kekshaus.cookieApi.warp.database.ConnectionInject;
-import de.kekshaus.cookieApi.warp.database.WarpHASHDB;
+import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
+import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
+import de.nlinz.xeonSuite.warp.Warpplugin;
+import de.nlinz.xeonSuite.warp.api.WPStreamOutApi;
+import de.nlinz.xeonSuite.warp.database.ConnectionInject;
+import de.nlinz.xeonSuite.warp.database.WarpHASHDB;
 import net.md_5.bungee.api.ChatColor;
 
 public class WarpCommand implements CommandExecutor {
@@ -41,7 +41,7 @@ public class WarpCommand implements CommandExecutor {
 								if (!player.hasPermission("cookieApi.bypass")) {
 									WarpHASHDB.lastWarpLocation.put(player, player.getLocation());
 									player.sendMessage(GlobalMessageDB.TELEPORT_TIMER.replace("{TIME}",
-											String.valueOf(CookieApiBukkit.getWarmUpTime())));
+											String.valueOf(XeonSuiteBukkit.getWarmUpTime())));
 									Warpplugin.inst().getServer().getScheduler().runTaskLater(Warpplugin.inst(),
 											new Runnable() {
 										@Override
@@ -67,7 +67,7 @@ public class WarpCommand implements CommandExecutor {
 												player.sendMessage(GlobalMessageDB.TELEPORT_MOVE_CANCEL);
 											}
 										}
-									}, 20L * CookieApiBukkit.getWarmUpTime());
+									}, 20L * XeonSuiteBukkit.getWarmUpTime());
 								} else {
 									List<String> list = ConnectionInject.getWarp(warpName);
 									String world = list.get(1);

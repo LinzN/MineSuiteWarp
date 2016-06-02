@@ -1,4 +1,4 @@
-package de.kekshaus.cookieApi.warp.database;
+package de.nlinz.xeonSuite.warp.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

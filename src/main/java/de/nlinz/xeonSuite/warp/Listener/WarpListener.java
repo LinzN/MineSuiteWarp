@@ -1,4 +1,4 @@
-package de.kekshaus.cookieApi.warp.Listener;
+package de.nlinz.xeonSuite.warp.Listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -7,9 +7,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
-import de.kekshaus.cookieApi.bukkit.CookieApiBukkit;
-import de.kekshaus.cookieApi.bukkit.GlobalMessageDB;
-import de.kekshaus.cookieApi.warp.database.WarpHASHDB;
+import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
+import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
+import de.nlinz.xeonSuite.warp.database.WarpHASHDB;
 
 public class WarpListener implements Listener {
 
@@ -34,7 +34,7 @@ public class WarpListener implements Listener {
 	}
 
 	public void sendWarpMSG(final Player p) {
-		Bukkit.getScheduler().runTaskLaterAsynchronously(CookieApiBukkit.getInstance(), new Runnable() {
+		Bukkit.getScheduler().runTaskLaterAsynchronously(XeonSuiteBukkit.getInstance(), new Runnable() {
 			@Override
 			public void run() {
 				WarpHASHDB.ignoreWarp.remove(p);

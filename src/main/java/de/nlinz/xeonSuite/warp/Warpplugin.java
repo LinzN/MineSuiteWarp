@@ -1,14 +1,14 @@
-package de.kekshaus.cookieApi.warp;
+package de.nlinz.xeonSuite.warp;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.kekshaus.cookieApi.warp.Listener.BukkitSockWarpListener;
-import de.kekshaus.cookieApi.warp.Listener.WarpListener;
-import de.kekshaus.cookieApi.warp.commands.DeleteWarpCommand;
-import de.kekshaus.cookieApi.warp.commands.SetWarpCommand;
-import de.kekshaus.cookieApi.warp.commands.WarpCommand;
-import de.kekshaus.cookieApi.warp.commands.WarpListCommand;
-import de.kekshaus.cookieApi.warp.database.MineWarpDB;
+import de.nlinz.xeonSuite.warp.Listener.BukkitSockWarpListener;
+import de.nlinz.xeonSuite.warp.Listener.WarpListener;
+import de.nlinz.xeonSuite.warp.commands.DeleteWarpCommand;
+import de.nlinz.xeonSuite.warp.commands.SetWarpCommand;
+import de.nlinz.xeonSuite.warp.commands.WarpCommand;
+import de.nlinz.xeonSuite.warp.commands.WarpListCommand;
+import de.nlinz.xeonSuite.warp.database.MineWarpDB;
 
 public class Warpplugin extends JavaPlugin {
 	private static Warpplugin inst;

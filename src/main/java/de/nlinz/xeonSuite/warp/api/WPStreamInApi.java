@@ -1,4 +1,4 @@
-package de.kekshaus.cookieApi.warp.api;
+package de.nlinz.xeonSuite.warp.api;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -6,10 +6,10 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import de.kekshaus.cookieApi.bukkit.CookieApiBukkit;
-import de.kekshaus.cookieApi.bukkit.GlobalMessageDB;
-import de.kekshaus.cookieApi.bukkit.utils.LocationUtil;
-import de.kekshaus.cookieApi.warp.database.WarpHASHDB;
+import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
+import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
+import de.nlinz.xeonSuite.bukkit.utils.LocationUtil;
+import de.nlinz.xeonSuite.warp.database.WarpHASHDB;
 
 public class WPStreamInApi {
 
@@ -45,7 +45,7 @@ public class WPStreamInApi {
 			}
 		} else {
 			WarpHASHDB.pendingWarpLocations.put(player, t);
-			Bukkit.getScheduler().runTaskLaterAsynchronously(CookieApiBukkit.getInstance(), new Runnable() {
+			Bukkit.getScheduler().runTaskLaterAsynchronously(XeonSuiteBukkit.getInstance(), new Runnable() {
 				@Override
 				public void run() {
 					if (WarpHASHDB.pendingWarpLocations.containsKey(player)) {

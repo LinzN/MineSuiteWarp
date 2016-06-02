@@ -1,4 +1,4 @@
-package de.kekshaus.cookieApi.warp.commands;
+package de.nlinz.xeonSuite.warp.commands;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,9 +16,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import de.kekshaus.cookieApi.bukkit.GlobalMessageDB;
-import de.kekshaus.cookieApi.warp.Warpplugin;
-import de.kekshaus.cookieApi.warp.database.ConnectionInject;
+import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
+import de.nlinz.xeonSuite.warp.Warpplugin;
+import de.nlinz.xeonSuite.warp.database.ConnectionInject;
 
 public class WarpListCommand implements CommandExecutor {
 	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,

@@ -1,4 +1,4 @@
-package de.kekshaus.cookieApi.warp.Listener;
+package de.nlinz.xeonSuite.warp.Listener;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -6,8 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import de.keks.socket.bukkit.events.plugin.BukkitSockWarpEvent;
 import de.keks.socket.core.ByteStreamConverter;
-import de.kekshaus.cookieApi.bukkit.CookieApiBukkit;
-import de.kekshaus.cookieApi.warp.api.WPStreamInApi;
+import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
+import de.nlinz.xeonSuite.warp.api.WPStreamInApi;
 
 public class BukkitSockWarpListener implements Listener {
 
@@ -20,7 +20,7 @@ public class BukkitSockWarpListener implements Listener {
 		try {
 			servername = in.readUTF();
 
-			if (!servername.equalsIgnoreCase(CookieApiBukkit.getServerName())) {
+			if (!servername.equalsIgnoreCase(XeonSuiteBukkit.getServerName())) {
 				return;
 			}
 

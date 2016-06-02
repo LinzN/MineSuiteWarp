@@ -1,4 +1,4 @@
-package de.kekshaus.cookieApi.warp.commands;
+package de.nlinz.xeonSuite.warp.commands;
 
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -7,9 +7,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.entity.Player;
 
-import de.kekshaus.cookieApi.warp.Warpplugin;
-import de.kekshaus.cookieApi.warp.api.WPStreamOutApi;
-import de.kekshaus.cookieApi.warp.database.ConnectionInject;
+import de.nlinz.xeonSuite.warp.Warpplugin;
+import de.nlinz.xeonSuite.warp.api.WPStreamOutApi;
+import de.nlinz.xeonSuite.warp.database.ConnectionInject;
 import net.md_5.bungee.api.ChatColor;
 
 public class WarpPortalApi {
