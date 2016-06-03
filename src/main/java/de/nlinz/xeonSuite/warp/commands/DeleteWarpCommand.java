@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 import de.nlinz.xeonSuite.warp.Warpplugin;
-import de.nlinz.xeonSuite.warp.database.ConnectionInject;
+import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
 
 public class DeleteWarpCommand implements CommandExecutor {
 	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
@@ -30,7 +30,7 @@ public class DeleteWarpCommand implements CommandExecutor {
 						if (args.length >= 1) {
 							String warpName = args[0].toLowerCase();
 
-							ConnectionInject.delWarp(warpName);
+							WarpSqlActions.delWarp(warpName);
 							sender.sendMessage(ChatColor.GREEN + "Der Warp " + ChatColor.YELLOW + warpName
 									+ ChatColor.GREEN + " wurde entfernt!");
 						} else {

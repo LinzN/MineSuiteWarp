@@ -6,7 +6,7 @@ import java.util.HashSet;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class WarpHASHDB {
+public class WarpDataTable {
 	public static HashMap<String, Player> pendingWarp = new HashMap<String, Player>();
 	public static HashMap<String, Location> pendingWarpLocations = new HashMap<String, Location>();
 	public static HashSet<Player> ignoreWarp = new HashSet<Player>();

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import de.nlinz.xeonSuite.warp.Warpplugin;
 import de.nlinz.xeonSuite.warp.api.WPStreamOutApi;
-import de.nlinz.xeonSuite.warp.database.ConnectionInject;
+import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
 import net.md_5.bungee.api.ChatColor;
 
 public class WarpPortalApi {
@@ -25,9 +25,9 @@ public class WarpPortalApi {
 		executorServiceCommands.submit(new Runnable() {
 			public void run() {
 
-				if (ConnectionInject.isWarp(warpName)) {
+				if (WarpSqlActions.isWarp(warpName)) {
 
-					List<String> list = ConnectionInject.getWarp(warpName);
+					List<String> list = WarpSqlActions.getWarp(warpName);
 					String world = list.get(1);
 					String server = list.get(2);
 

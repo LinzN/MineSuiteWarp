@@ -18,7 +18,7 @@ import org.bukkit.entity.Player;
 
 import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 import de.nlinz.xeonSuite.warp.Warpplugin;
-import de.nlinz.xeonSuite.warp.database.ConnectionInject;
+import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
 
 public class WarpListCommand implements CommandExecutor {
 	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
@@ -37,7 +37,7 @@ public class WarpListCommand implements CommandExecutor {
 						if (player.hasPermission("cookieApi.bypass")) {
 							visible = 0;
 						}
-						HashMap<String, UUID> list = ConnectionInject.getWarps(visible);
+						HashMap<String, UUID> list = WarpSqlActions.getWarps(visible);
 						List<String> warpname = new ArrayList<String>();
 
 						for (Map.Entry<String, UUID> s : list.entrySet()) {

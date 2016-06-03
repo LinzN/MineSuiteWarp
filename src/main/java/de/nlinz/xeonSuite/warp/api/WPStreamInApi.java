@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
 import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 import de.nlinz.xeonSuite.bukkit.utils.LocationUtil;
-import de.nlinz.xeonSuite.warp.database.WarpHASHDB;
+import de.nlinz.xeonSuite.warp.database.WarpDataTable;
 
 public class WPStreamInApi {
 
@@ -44,12 +44,12 @@ public class WPStreamInApi {
 				p.sendMessage(GlobalMessageDB.Teleport_Warp);
 			}
 		} else {
-			WarpHASHDB.pendingWarpLocations.put(player, t);
+			WarpDataTable.pendingWarpLocations.put(player, t);
 			Bukkit.getScheduler().runTaskLaterAsynchronously(XeonSuiteBukkit.getInstance(), new Runnable() {
 				@Override
 				public void run() {
-					if (WarpHASHDB.pendingWarpLocations.containsKey(player)) {
-						WarpHASHDB.pendingWarpLocations.remove(player);
+					if (WarpDataTable.pendingWarpLocations.containsKey(player)) {
+						WarpDataTable.pendingWarpLocations.remove(player);
 					}
 
 				}

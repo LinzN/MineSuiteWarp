@@ -9,25 +9,25 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
 import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
-import de.nlinz.xeonSuite.warp.database.WarpHASHDB;
+import de.nlinz.xeonSuite.warp.database.WarpDataTable;
 
 public class WarpListener implements Listener {
 
 	@EventHandler
 	public void playerConnect(PlayerSpawnLocationEvent e) {
-		if (WarpHASHDB.pendingWarp.containsKey(e.getPlayer().getName())) {
-			Player t = WarpHASHDB.pendingWarp.get(e.getPlayer().getName());
-			WarpHASHDB.pendingWarp.remove(e.getPlayer().getName());
+		if (WarpDataTable.pendingWarp.containsKey(e.getPlayer().getName())) {
+			Player t = WarpDataTable.pendingWarp.get(e.getPlayer().getName());
+			WarpDataTable.pendingWarp.remove(e.getPlayer().getName());
 			if ((t == null) || (!t.isOnline())) {
 				e.getPlayer().sendMessage("Player is no longer online");
 				return;
 			}
-			WarpHASHDB.ignoreWarp.add(e.getPlayer());
+			WarpDataTable.ignoreWarp.add(e.getPlayer());
 			e.setSpawnLocation(t.getLocation());
 			sendWarpMSG(e.getPlayer());
-		} else if (WarpHASHDB.pendingWarpLocations.containsKey(e.getPlayer().getName())) {
-			Location l = WarpHASHDB.pendingWarpLocations.get(e.getPlayer().getName());
-			WarpHASHDB.ignoreWarp.add(e.getPlayer());
+		} else if (WarpDataTable.pendingWarpLocations.containsKey(e.getPlayer().getName())) {
+			Location l = WarpDataTable.pendingWarpLocations.get(e.getPlayer().getName());
+			WarpDataTable.ignoreWarp.add(e.getPlayer());
 			e.setSpawnLocation(l);
 			sendWarpMSG(e.getPlayer());
 		}
@@ -37,7 +37,7 @@ public class WarpListener implements Listener {
 		Bukkit.getScheduler().runTaskLaterAsynchronously(XeonSuiteBukkit.getInstance(), new Runnable() {
 			@Override
 			public void run() {
-				WarpHASHDB.ignoreWarp.remove(p);
+				WarpDataTable.ignoreWarp.remove(p);
 				p.sendMessage(GlobalMessageDB.Teleport_Warp);
 			}
 		}, 20);

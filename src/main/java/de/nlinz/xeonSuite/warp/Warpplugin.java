@@ -9,7 +9,6 @@ import de.nlinz.xeonSuite.warp.commands.DeleteWarpCommand;
 import de.nlinz.xeonSuite.warp.commands.SetWarpCommand;
 import de.nlinz.xeonSuite.warp.commands.WarpCommand;
 import de.nlinz.xeonSuite.warp.commands.WarpListCommand;
-import de.nlinz.xeonSuite.warp.database.MineWarpDB;
 
 public class Warpplugin extends JavaPlugin {
 	private static Warpplugin inst;
@@ -17,10 +16,6 @@ public class Warpplugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		inst = this;
-
-		if (MineWarpDB.create()) {
-			// someting
-		}
 		loadCommands();
 		XeonSocketClientManager.registerDataListener(new XeonWarp());
 		getServer().getPluginManager().registerEvents(new WarpListener(), this);

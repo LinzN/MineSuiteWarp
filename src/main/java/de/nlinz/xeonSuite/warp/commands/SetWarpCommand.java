@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
 import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 import de.nlinz.xeonSuite.warp.Warpplugin;
-import de.nlinz.xeonSuite.warp.database.ConnectionInject;
+import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
 
 public class SetWarpCommand implements CommandExecutor {
 	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
@@ -43,7 +43,7 @@ public class SetWarpCommand implements CommandExecutor {
 						if (args.length >= 1) {
 							String warpName = args[0].toLowerCase();
 
-							if (ConnectionInject.isWarp(warpName)) {
+							if (WarpSqlActions.isWarp(warpName)) {
 								sender.sendMessage("Dieser Warp ist bereits registriert.");
 								return;
 							}
@@ -54,7 +54,7 @@ public class SetWarpCommand implements CommandExecutor {
 								}
 							}
 
-							ConnectionInject.setWarp(player.getUniqueId(), warpName, server, world, x, y, z, yaw, pitch,
+							WarpSqlActions.setWarp(player.getUniqueId(), warpName, server, world, x, y, z, yaw, pitch,
 									visible);
 							sender.sendMessage(ChatColor.GREEN + "Du hast den Warp " + ChatColor.YELLOW + warpName
 									+ ChatColor.GREEN + " registriert!");

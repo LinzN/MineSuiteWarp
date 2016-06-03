@@ -15,8 +15,8 @@ import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
 import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 import de.nlinz.xeonSuite.warp.Warpplugin;
 import de.nlinz.xeonSuite.warp.api.WPStreamOutApi;
-import de.nlinz.xeonSuite.warp.database.ConnectionInject;
-import de.nlinz.xeonSuite.warp.database.WarpHASHDB;
+import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
+import de.nlinz.xeonSuite.warp.database.WarpDataTable;
 import net.md_5.bungee.api.ChatColor;
 
 public class WarpCommand implements CommandExecutor {
@@ -37,9 +37,9 @@ public class WarpCommand implements CommandExecutor {
 						if ((args.length >= 1)) {
 							final String warpName = args[0].toLowerCase();
 
-							if (ConnectionInject.isWarp(warpName)) {
+							if (WarpSqlActions.isWarp(warpName)) {
 								if (!player.hasPermission("cookieApi.bypass")) {
-									WarpHASHDB.lastWarpLocation.put(player, player.getLocation());
+									WarpDataTable.lastWarpLocation.put(player, player.getLocation());
 									player.sendMessage(GlobalMessageDB.TELEPORT_TIMER.replace("{TIME}",
 											String.valueOf(XeonSuiteBukkit.getWarmUpTime())));
 									Warpplugin.inst().getServer().getScheduler().runTaskLater(Warpplugin.inst(),
@@ -47,11 +47,11 @@ public class WarpCommand implements CommandExecutor {
 										@Override
 										public void run() {
 
-											Location loc = WarpHASHDB.lastWarpLocation.get(player);
-											WarpHASHDB.lastWarpLocation.remove(player);
+											Location loc = WarpDataTable.lastWarpLocation.get(player);
+											WarpDataTable.lastWarpLocation.remove(player);
 											if ((loc != null)
 													&& (loc.getBlock().equals(player.getLocation().getBlock()))) {
-												List<String> list = ConnectionInject.getWarp(warpName);
+												List<String> list = WarpSqlActions.getWarp(warpName);
 												String world = list.get(1);
 												String server = list.get(2);
 												double x = Double.parseDouble(list.get(3));
@@ -69,7 +69,7 @@ public class WarpCommand implements CommandExecutor {
 										}
 									}, 20L * XeonSuiteBukkit.getWarmUpTime());
 								} else {
-									List<String> list = ConnectionInject.getWarp(warpName);
+									List<String> list = WarpSqlActions.getWarp(warpName);
 									String world = list.get(1);
 									String server = list.get(2);
 

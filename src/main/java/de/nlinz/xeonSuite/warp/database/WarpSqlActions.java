@@ -9,13 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-public class ConnectionInject {
+import de.nlinz.xeonSuite.bukkit.database.XeonConnectionManager;
+
+public class WarpSqlActions {
 
 	public static void setWarp(UUID uuid, String warp, String server, String world, double x, double y, double z,
 			float yaw, float pitch, int visible) {
-		ConnectionManager manager = ConnectionManager.DEFAULT;
+		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("minewarp");
+			Connection conn = manager.getConnection("XeonSuite");
 			PreparedStatement sql = conn
 					.prepareStatement("SELECT warp_name FROM warps WHERE warp_name = '" + warp + "';");
 			ResultSet result = sql.executeQuery();
@@ -35,7 +37,7 @@ public class ConnectionInject {
 			}
 			result.close();
 			sql.close();
-			manager.release("minewarp", conn);
+			manager.release("XeonSuite", conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -43,9 +45,9 @@ public class ConnectionInject {
 	}
 
 	public static void delWarp(String warp) {
-		ConnectionManager manager = ConnectionManager.DEFAULT;
+		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("minewarp");
+			Connection conn = manager.getConnection("XeonSuite");
 			PreparedStatement sql = conn
 					.prepareStatement("SELECT warp_name FROM warps WHERE warp_name = '" + warp + "';");
 			ResultSet result = sql.executeQuery();
@@ -56,7 +58,7 @@ public class ConnectionInject {
 			}
 			result.close();
 			sql.close();
-			manager.release("minewarp", conn);
+			manager.release("XeonSuite", conn);
 
 		}
 
@@ -68,9 +70,9 @@ public class ConnectionInject {
 	public static List<String> getWarp(String warp) {
 		final List<String> rlist = new ArrayList<String>();
 
-		ConnectionManager manager = ConnectionManager.DEFAULT;
+		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("minewarp");
+			Connection conn = manager.getConnection("XeonSuite");
 			PreparedStatement sql = conn.prepareStatement(
 					"SELECT world, server, x, y, z, yaw, pitch FROM warps WHERE warp_name = '" + warp + "';");
 			final ResultSet result = sql.executeQuery();
@@ -83,15 +85,11 @@ public class ConnectionInject {
 				rlist.add(5, result.getString(5));
 				rlist.add(6, result.getString(6));
 				rlist.add(7, result.getString(7));
-				result.close();
-				sql.close();
-				manager.release("minewarp", conn);
-			} else {
-				result.close();
-				sql.close();
-				manager.release("minewarp", conn);
-				return null;
 			}
+			result.close();
+			sql.close();
+			manager.release("XeonSuite", conn);
+
 			return rlist;
 
 		} catch (SQLException e) {
@@ -102,9 +100,9 @@ public class ConnectionInject {
 
 	public static boolean isWarp(String warp) {
 		boolean isWarp = false;
-		ConnectionManager manager = ConnectionManager.DEFAULT;
+		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("minewarp");
+			Connection conn = manager.getConnection("XeonSuite");
 			PreparedStatement sql = conn
 					.prepareStatement("SELECT warp_name FROM warps WHERE warp_name = '" + warp + "';");
 			ResultSet result = sql.executeQuery();
@@ -115,7 +113,7 @@ public class ConnectionInject {
 			}
 			result.close();
 			sql.close();
-			manager.release("minewarp", conn);
+			manager.release("XeonSuite", conn);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -124,10 +122,10 @@ public class ConnectionInject {
 	}
 
 	public static HashMap<String, UUID> getWarps(int visible) {
-		ConnectionManager manager = ConnectionManager.DEFAULT;
+		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
 		try {
 
-			Connection conn = manager.getConnection("minewarp");
+			Connection conn = manager.getConnection("XeonSuite");
 			PreparedStatement sel;
 			if (visible == 0) {
 				sel = conn.prepareStatement("SELECT * FROM warps;");
@@ -136,20 +134,17 @@ public class ConnectionInject {
 			}
 
 			HashMap<String, UUID> list = new HashMap<String, UUID>();
-			try {
-				ResultSet result = sel.executeQuery();
-				if (result != null) {
-					while (result.next()) {
-						list.put(result.getString("warp_name"), UUID.fromString(result.getString("player")));
-					}
+
+			ResultSet result = sel.executeQuery();
+			if (result != null) {
+				while (result.next()) {
+					list.put(result.getString("warp_name"), UUID.fromString(result.getString("player")));
 				}
-				result.close();
-				sel.close();
-				manager.release("minewarp", conn);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
 			}
+			result.close();
+			sel.close();
+			manager.release("XeonSuite", conn);
+
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
