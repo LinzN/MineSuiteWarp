@@ -12,11 +12,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
+import de.nlinz.xeonSuite.bukkit.utils.tables.WarpDataTable;
 import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 import de.nlinz.xeonSuite.warp.Warpplugin;
 import de.nlinz.xeonSuite.warp.api.WPStreamOutApi;
 import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
-import de.nlinz.xeonSuite.warp.database.WarpDataTable;
 import net.md_5.bungee.api.ChatColor;
 
 public class WarpCommand implements CommandExecutor {

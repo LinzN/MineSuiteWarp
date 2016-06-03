@@ -8,8 +8,8 @@ import org.bukkit.event.Listener;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
+import de.nlinz.xeonSuite.bukkit.utils.tables.WarpDataTable;
 import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
-import de.nlinz.xeonSuite.warp.database.WarpDataTable;
 
 public class WarpListener implements Listener {
 

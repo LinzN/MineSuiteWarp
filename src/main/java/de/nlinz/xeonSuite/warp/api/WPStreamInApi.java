@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
 import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 import de.nlinz.xeonSuite.bukkit.utils.LocationUtil;
-import de.nlinz.xeonSuite.warp.database.WarpDataTable;
+import de.nlinz.xeonSuite.bukkit.utils.tables.WarpDataTable;
 
 public class WPStreamInApi {
 
