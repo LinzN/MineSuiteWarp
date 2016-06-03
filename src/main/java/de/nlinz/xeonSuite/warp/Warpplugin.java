@@ -2,8 +2,9 @@ package de.nlinz.xeonSuite.warp;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.nlinz.xeonSuite.warp.Listener.BukkitSockWarpListener;
+import de.nlinz.javaSocket.client.api.XeonSocketClientManager;
 import de.nlinz.xeonSuite.warp.Listener.WarpListener;
+import de.nlinz.xeonSuite.warp.Listener.XeonWarp;
 import de.nlinz.xeonSuite.warp.commands.DeleteWarpCommand;
 import de.nlinz.xeonSuite.warp.commands.SetWarpCommand;
 import de.nlinz.xeonSuite.warp.commands.WarpCommand;
@@ -13,6 +14,7 @@ import de.nlinz.xeonSuite.warp.database.MineWarpDB;
 public class Warpplugin extends JavaPlugin {
 	private static Warpplugin inst;
 
+	@Override
 	public void onEnable() {
 		inst = this;
 
@@ -20,10 +22,11 @@ public class Warpplugin extends JavaPlugin {
 			// someting
 		}
 		loadCommands();
-		getServer().getPluginManager().registerEvents(new BukkitSockWarpListener(), this);
+		XeonSocketClientManager.registerDataListener(new XeonWarp());
 		getServer().getPluginManager().registerEvents(new WarpListener(), this);
 	}
 
+	@Override
 	public void onDisable() {
 	}
 
