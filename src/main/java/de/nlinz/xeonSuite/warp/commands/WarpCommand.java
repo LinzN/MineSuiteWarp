@@ -30,7 +30,7 @@ public class WarpCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
 		final Player player = (Player) sender;
-		if (player.hasPermission("cookieApi.warp.warp")) {
+		if (player.hasPermission("xeonSuite.warp.warp")) {
 			this.executorServiceCommands.submit(new Runnable() {
 				@Override
 				public void run() {
@@ -40,7 +40,7 @@ public class WarpCommand implements CommandExecutor {
 							final String warpName = args[0].toLowerCase();
 
 							if (WarpSqlActions.isWarp(warpName)) {
-								if (!player.hasPermission("cookieApi.bypass")) {
+								if (!player.hasPermission("xeonSuite.bypass")) {
 									WarpDataTable.lastWarpLocation.put(player, player.getLocation());
 									player.sendMessage(GlobalLanguage.TELEPORT_TIMER.replace("{TIME}",
 											String.valueOf(XeonSuiteBukkit.getWarmUpTime())));

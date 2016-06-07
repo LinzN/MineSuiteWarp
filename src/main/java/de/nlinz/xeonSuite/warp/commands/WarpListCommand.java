@@ -30,13 +30,13 @@ public class WarpListCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
 		final Player player = (Player) sender;
-		if (player.hasPermission("cookieApi.warp.warps")) {
+		if (player.hasPermission("xeonSuite.warp.warps")) {
 			this.executorServiceCommands.submit(new Runnable() {
 				@Override
 				public void run() {
 					if (sender instanceof Player) {
 						int visible = 1;
-						if (player.hasPermission("cookieApi.bypass")) {
+						if (player.hasPermission("xeonSuite.bypass")) {
 							visible = 0;
 						}
 						HashMap<String, UUID> list = WarpSqlActions.getWarps(visible);

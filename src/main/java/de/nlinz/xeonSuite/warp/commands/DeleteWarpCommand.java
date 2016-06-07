@@ -24,7 +24,7 @@ public class DeleteWarpCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
 		final Player player = (Player) sender;
-		if (player.hasPermission("cookieApi.warp.delwarp")) {
+		if (player.hasPermission("xeonSuite.warp.delwarp")) {
 			this.executorServiceCommands.submit(new Runnable() {
 				@Override
 				public void run() {

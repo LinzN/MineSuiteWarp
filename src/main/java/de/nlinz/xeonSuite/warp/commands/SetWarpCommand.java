@@ -26,7 +26,7 @@ public class SetWarpCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmnd, String label, final String[] args) {
 		final Player player = (Player) sender;
-		if (player.hasPermission("cookieApi.warp.setwarp")) {
+		if (player.hasPermission("xeonSuite.warp.setwarp")) {
 			this.executorServiceCommands.submit(new Runnable() {
 				@Override
 				public void run() {

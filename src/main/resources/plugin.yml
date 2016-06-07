@@ -18,26 +18,26 @@ commands:
   delwarp:
     description: Delete a Warp
 permissions:
-    cookieApi.warp.team:
+    xeonSuite.warp.team:
         description: Alle Team Permissions
         children:
-            cookieApi.warp.user: true
-            cookieApi.warp.setwarp: true
-            cookieApi.warp.delwarp: true
-    cookieApi.warp.user:
+            xeonSuite.warp.user: true
+            xeonSuite.warp.setwarp: true
+            xeonSuite.warp.delwarp: true
+    xeonSuite.warp.user:
         description: Alle User Permissions
         children:
-            cookieApi.warp.warp: true
-            cookieApi.warp.warps: true
-    cookieApi.warp.warp:
+            xeonSuite.warp.warp: true
+            xeonSuite.warp.warps: true
+    xeonSuite.warp.warp:
         description: Teleport to warp
         default: op
-    cookieApi.warp.setwarp:
+    xeonSuite.warp.setwarp:
         description: Set warp
         default: op
-    cookieApi.warp.warps:
+    xeonSuite.warp.warps:
         description: Warplist
         default: op
-    cookieApi.warp.delwarp:
+    xeonSuite.warp.delwarp:
         description: Delwarp
         default: op
