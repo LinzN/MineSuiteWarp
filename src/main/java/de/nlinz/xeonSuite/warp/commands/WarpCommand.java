@@ -12,8 +12,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
+import de.nlinz.xeonSuite.bukkit.utils.languages.GlobalLanguage;
 import de.nlinz.xeonSuite.bukkit.utils.tables.WarpDataTable;
-import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 import de.nlinz.xeonSuite.warp.Warpplugin;
 import de.nlinz.xeonSuite.warp.api.WPStreamOutApi;
 import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
@@ -27,10 +27,12 @@ public class WarpCommand implements CommandExecutor {
 
 	}
 
+	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
 		final Player player = (Player) sender;
 		if (player.hasPermission("cookieApi.warp.warp")) {
 			this.executorServiceCommands.submit(new Runnable() {
+				@Override
 				public void run() {
 					if (sender instanceof Player) {
 						final Player player = (Player) sender;
@@ -40,7 +42,7 @@ public class WarpCommand implements CommandExecutor {
 							if (WarpSqlActions.isWarp(warpName)) {
 								if (!player.hasPermission("cookieApi.bypass")) {
 									WarpDataTable.lastWarpLocation.put(player, player.getLocation());
-									player.sendMessage(GlobalMessageDB.TELEPORT_TIMER.replace("{TIME}",
+									player.sendMessage(GlobalLanguage.TELEPORT_TIMER.replace("{TIME}",
 											String.valueOf(XeonSuiteBukkit.getWarmUpTime())));
 									Warpplugin.inst().getServer().getScheduler().runTaskLater(Warpplugin.inst(),
 											new Runnable() {
@@ -64,7 +66,7 @@ public class WarpCommand implements CommandExecutor {
 
 														return;
 													} else {
-														player.sendMessage(GlobalMessageDB.TELEPORT_MOVE_CANCEL);
+														player.sendMessage(GlobalLanguage.TELEPORT_MOVE_CANCEL);
 													}
 												}
 											}, 20L * XeonSuiteBukkit.getWarmUpTime());
@@ -94,7 +96,7 @@ public class WarpCommand implements CommandExecutor {
 				}
 			});
 		} else {
-			player.sendMessage(GlobalMessageDB.NO_PERMISSIONS);
+			player.sendMessage(GlobalLanguage.NO_PERMISSIONS);
 		}
 		return false;
 	}

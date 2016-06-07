@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
+import de.nlinz.xeonSuite.bukkit.utils.languages.GlobalLanguage;
 import de.nlinz.xeonSuite.warp.Warpplugin;
 import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
 
@@ -21,10 +21,12 @@ public class DeleteWarpCommand implements CommandExecutor {
 	public DeleteWarpCommand(Warpplugin instance) {
 	}
 
+	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
 		final Player player = (Player) sender;
 		if (player.hasPermission("cookieApi.warp.delwarp")) {
 			this.executorServiceCommands.submit(new Runnable() {
+				@Override
 				public void run() {
 					if (sender instanceof Player) {
 						if (args.length >= 1) {
@@ -40,7 +42,7 @@ public class DeleteWarpCommand implements CommandExecutor {
 				}
 			});
 		} else {
-			player.sendMessage(GlobalMessageDB.NO_PERMISSIONS);
+			player.sendMessage(GlobalLanguage.NO_PERMISSIONS);
 
 		}
 		return false;

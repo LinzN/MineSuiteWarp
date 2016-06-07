@@ -8,8 +8,8 @@ import org.bukkit.event.Listener;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
+import de.nlinz.xeonSuite.bukkit.utils.languages.WarpLanguage;
 import de.nlinz.xeonSuite.bukkit.utils.tables.WarpDataTable;
-import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 
 public class WarpListener implements Listener {
 
@@ -38,7 +38,7 @@ public class WarpListener implements Listener {
 			@Override
 			public void run() {
 				WarpDataTable.ignoreWarp.remove(p);
-				p.sendMessage(GlobalMessageDB.Teleport_Warp);
+				p.sendMessage(WarpLanguage.Teleport_Warp);
 			}
 		}, 20);
 

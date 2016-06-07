@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
-import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
+import de.nlinz.xeonSuite.bukkit.utils.languages.GlobalLanguage;
 import de.nlinz.xeonSuite.warp.Warpplugin;
 import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
 
@@ -23,10 +23,12 @@ public class SetWarpCommand implements CommandExecutor {
 	public SetWarpCommand(Warpplugin instance) {
 	}
 
+	@Override
 	public boolean onCommand(final CommandSender sender, Command cmnd, String label, final String[] args) {
 		final Player player = (Player) sender;
 		if (player.hasPermission("cookieApi.warp.setwarp")) {
 			this.executorServiceCommands.submit(new Runnable() {
+				@Override
 				public void run() {
 					if (sender instanceof Player) {
 						Player player = (Player) sender;
@@ -67,7 +69,7 @@ public class SetWarpCommand implements CommandExecutor {
 				}
 			});
 		} else {
-			player.sendMessage(GlobalMessageDB.NO_PERMISSIONS);
+			player.sendMessage(GlobalLanguage.NO_PERMISSIONS);
 		}
 		return false;
 	}

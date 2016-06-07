@@ -7,8 +7,8 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
-import de.nlinz.xeonSuite.bukkit.GlobalMessageDB;
 import de.nlinz.xeonSuite.bukkit.utils.LocationUtil;
+import de.nlinz.xeonSuite.bukkit.utils.languages.WarpLanguage;
 import de.nlinz.xeonSuite.bukkit.utils.tables.WarpDataTable;
 
 public class WPStreamInApi {
@@ -32,7 +32,7 @@ public class WPStreamInApi {
 					Location l = LocationUtil.getSafeDestination(p, t);
 					if (l != null) {
 						p.teleport(l);
-						p.sendMessage(GlobalMessageDB.Teleport_Warp);
+						p.sendMessage(WarpLanguage.Teleport_Warp);
 					} else {
 						p.sendMessage(ChatColor.RED + "Unable to find a safe location for teleport.");
 					}
@@ -41,7 +41,7 @@ public class WPStreamInApi {
 				}
 			} else {
 				p.teleport(t);
-				p.sendMessage(GlobalMessageDB.Teleport_Warp);
+				p.sendMessage(WarpLanguage.Teleport_Warp);
 			}
 		} else {
 			WarpDataTable.pendingWarpLocations.put(player, t);
