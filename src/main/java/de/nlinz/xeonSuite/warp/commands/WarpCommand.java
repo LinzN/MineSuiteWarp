@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.nlinz.xeonSuite.bukkit.XeonSuiteBukkit;
-import de.nlinz.xeonSuite.bukkit.utils.languages.GlobalLanguage;
+import de.nlinz.xeonSuite.bukkit.utils.languages.GeneralLanguage;
 import de.nlinz.xeonSuite.bukkit.utils.tables.WarpDataTable;
 import de.nlinz.xeonSuite.warp.Warpplugin;
 import de.nlinz.xeonSuite.warp.api.WPStreamOutApi;
@@ -42,7 +42,7 @@ public class WarpCommand implements CommandExecutor {
 							if (WarpSqlActions.isWarp(warpName)) {
 								if (!player.hasPermission("xeonSuite.bypass")) {
 									WarpDataTable.lastWarpLocation.put(player, player.getLocation());
-									player.sendMessage(GlobalLanguage.TELEPORT_TIMER.replace("{TIME}",
+									player.sendMessage(GeneralLanguage.TELEPORT_TIMER.replace("{TIME}",
 											String.valueOf(XeonSuiteBukkit.getWarmUpTime())));
 									Warpplugin.inst().getServer().getScheduler().runTaskLater(Warpplugin.inst(),
 											new Runnable() {
@@ -66,7 +66,7 @@ public class WarpCommand implements CommandExecutor {
 
 														return;
 													} else {
-														player.sendMessage(GlobalLanguage.TELEPORT_MOVE_CANCEL);
+														player.sendMessage(GeneralLanguage.TELEPORT_MOVE_CANCEL);
 													}
 												}
 											}, 20L * XeonSuiteBukkit.getWarmUpTime());
@@ -96,7 +96,7 @@ public class WarpCommand implements CommandExecutor {
 				}
 			});
 		} else {
-			player.sendMessage(GlobalLanguage.NO_PERMISSIONS);
+			player.sendMessage(GeneralLanguage.NO_PERMISSIONS);
 		}
 		return false;
 	}

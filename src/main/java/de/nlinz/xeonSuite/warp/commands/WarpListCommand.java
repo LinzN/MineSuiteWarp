@@ -16,7 +16,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import de.nlinz.xeonSuite.bukkit.utils.languages.GlobalLanguage;
+import de.nlinz.xeonSuite.bukkit.utils.languages.GeneralLanguage;
 import de.nlinz.xeonSuite.warp.Warpplugin;
 import de.nlinz.xeonSuite.warp.database.WarpSqlActions;
 
@@ -102,7 +102,7 @@ public class WarpListCommand implements CommandExecutor {
 				}
 			});
 		} else {
-			player.sendMessage(GlobalLanguage.NO_PERMISSIONS);
+			player.sendMessage(GeneralLanguage.NO_PERMISSIONS);
 		}
 		return false;
 	}
