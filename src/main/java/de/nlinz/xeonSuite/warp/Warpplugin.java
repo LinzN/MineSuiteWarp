@@ -1,5 +1,6 @@
 package de.nlinz.xeonSuite.warp;
 
+import org.bstats.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.nlinz.javaSocket.client.api.XeonSocketClientManager;
@@ -19,6 +20,7 @@ public class Warpplugin extends JavaPlugin {
 		loadCommands();
 		XeonSocketClientManager.registerDataListener(new XeonWarp());
 		getServer().getPluginManager().registerEvents(new WarpListener(), this);
+		new Metrics(this);
 	}
 
 	@Override
