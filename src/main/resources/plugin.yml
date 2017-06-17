@@ -1,5 +1,5 @@
 name: XeonSuiteWarp
-version: ${project.version}.b${build.number}
+version: ${project.version}
 description: Warpplugin
 authors: [Kekshaus]
 main: de.nlinz.xeonSuite.warp.Warpplugin
