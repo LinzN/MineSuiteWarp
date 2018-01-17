@@ -1,4 +1,6 @@
-package de.nlinz.xeonSuite.warp.database;
+package de.linzn.mineSuite.warp.database;
+
+import de.linzn.mineSuite.core.database.mysql.MySQLConnectionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,15 +11,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import de.nlinz.xeonSuite.bukkit.database.XeonConnectionManager;
 
 public class WarpSqlActions {
 
 	public static void setWarp(UUID uuid, String warp, String server, String world, double x, double y, double z,
-			float yaw, float pitch, int visible) {
-		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
+							   float yaw, float pitch, int visible) {
+		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("XeonSuite");
+			Connection conn = manager.getConnection("MineSuiteCore");
 			PreparedStatement sql = conn
 					.prepareStatement("SELECT warp_name FROM warps WHERE warp_name = '" + warp + "';");
 			ResultSet result = sql.executeQuery();
@@ -37,7 +38,7 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sql.close();
-			manager.release("XeonSuite", conn);
+			manager.release("MineSuiteCore", conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -45,9 +46,9 @@ public class WarpSqlActions {
 	}
 
 	public static void delWarp(String warp) {
-		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
+		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("XeonSuite");
+			Connection conn = manager.getConnection("MineSuiteCore");
 			PreparedStatement sql = conn
 					.prepareStatement("SELECT warp_name FROM warps WHERE warp_name = '" + warp + "';");
 			ResultSet result = sql.executeQuery();
@@ -58,11 +59,9 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sql.close();
-			manager.release("XeonSuite", conn);
+			manager.release("MineSuiteCore", conn);
 
-		}
-
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -70,9 +69,9 @@ public class WarpSqlActions {
 	public static List<String> getWarp(String warp) {
 		final List<String> rlist = new ArrayList<String>();
 
-		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
+		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("XeonSuite");
+			Connection conn = manager.getConnection("MineSuiteCore");
 			PreparedStatement sql = conn.prepareStatement(
 					"SELECT world, server, x, y, z, yaw, pitch FROM warps WHERE warp_name = '" + warp + "';");
 			final ResultSet result = sql.executeQuery();
@@ -88,7 +87,7 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sql.close();
-			manager.release("XeonSuite", conn);
+			manager.release("MineSuiteCore", conn);
 
 			return rlist;
 
@@ -100,9 +99,9 @@ public class WarpSqlActions {
 
 	public static boolean isWarp(String warp) {
 		boolean isWarp = false;
-		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
+		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("XeonSuite");
+			Connection conn = manager.getConnection("MineSuiteCore");
 			PreparedStatement sql = conn
 					.prepareStatement("SELECT warp_name FROM warps WHERE warp_name = '" + warp + "';");
 			ResultSet result = sql.executeQuery();
@@ -113,7 +112,7 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sql.close();
-			manager.release("XeonSuite", conn);
+			manager.release("MineSuiteCore", conn);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,10 +121,10 @@ public class WarpSqlActions {
 	}
 
 	public static HashMap<String, UUID> getWarps(int visible) {
-		XeonConnectionManager manager = XeonConnectionManager.DEFAULT;
+		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
 
-			Connection conn = manager.getConnection("XeonSuite");
+			Connection conn = manager.getConnection("MineSuiteCore");
 			PreparedStatement sel;
 			if (visible == 0) {
 				sel = conn.prepareStatement("SELECT * FROM warps;");
@@ -143,7 +142,7 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sel.close();
-			manager.release("XeonSuite", conn);
+			manager.release("MineSuiteCore", conn);
 
 			return list;
 		} catch (SQLException e) {

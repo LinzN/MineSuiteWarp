@@ -1,10 +1,10 @@
-name: XeonSuiteWarp
+name: MineSuiteWarp
 version: ${project.version}
-description: Warpplugin
+description: MineSuiteWarp Plugin
 authors: [Kekshaus]
-main: de.nlinz.xeonSuite.warp.Warpplugin
+main: de.linzn.mineSuite.warp.WarpPlugin
 load: POSTWORLD
-depend: [XeonSuiteBukkit]
+depend: [MineSuiteCore]
 
 
 commands:
@@ -18,26 +18,26 @@ commands:
   delwarp:
     description: Delete a Warp
 permissions:
-    xeonSuite.warp.team:
+    mineSuite.warp.team:
         description: Alle Team Permissions
         children:
-            xeonSuite.warp.user: true
-            xeonSuite.warp.setwarp: true
-            xeonSuite.warp.delwarp: true
-    xeonSuite.warp.user:
+            mineSuite.warp.user: true
+            mineSuite.warp.setwarp: true
+            mineSuite.warp.delwarp: true
+    mineSuite.warp.user:
         description: Alle User Permissions
         children:
-            xeonSuite.warp.warp: true
-            xeonSuite.warp.warps: true
-    xeonSuite.warp.warp:
+            mineSuite.warp.warp: true
+            mineSuite.warp.warps: true
+    mineSuite.warp.warp:
         description: Teleport to warp
         default: op
-    xeonSuite.warp.setwarp:
+    mineSuite.warp.setwarp:
         description: Set warp
         default: op
-    xeonSuite.warp.warps:
+    mineSuite.warp.warps:
         description: Warplist
         default: op
-    xeonSuite.warp.delwarp:
+    mineSuite.warp.delwarp:
         description: Delwarp
         default: op
