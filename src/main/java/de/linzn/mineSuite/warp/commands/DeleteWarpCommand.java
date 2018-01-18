@@ -1,7 +1,7 @@
 package de.linzn.mineSuite.warp.commands;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
-import de.linzn.mineSuite.warp.Warpplugin;
+import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.database.WarpSqlActions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,7 +17,7 @@ public class DeleteWarpCommand implements CommandExecutor {
 	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
 			new LinkedBlockingQueue<>());
 
-	public DeleteWarpCommand(Warpplugin instance) {
+	public DeleteWarpCommand(WarpPlugin instance) {
 	}
 
 	@Override

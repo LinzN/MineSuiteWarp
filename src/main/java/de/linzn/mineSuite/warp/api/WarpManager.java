@@ -3,7 +3,7 @@ package de.linzn.mineSuite.warp.api;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import de.linzn.mineSuite.core.database.hashDatabase.WarpDataTable;
 import de.linzn.mineSuite.core.utils.LocationUtil;
-import de.linzn.mineSuite.warp.Warpplugin;
+import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.database.WarpSqlActions;
 import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import org.bukkit.Bukkit;
@@ -49,7 +49,7 @@ public class WarpManager {
             }
         } else {
             WarpDataTable.pendingWarpLocations.put(player, t);
-            Bukkit.getScheduler().runTaskLaterAsynchronously(Warpplugin.inst(), () -> {
+            Bukkit.getScheduler().runTaskLaterAsynchronously(WarpPlugin.inst(), () -> {
                 if (WarpDataTable.pendingWarpLocations.containsKey(player)) {
                     WarpDataTable.pendingWarpLocations.remove(player);
                 }

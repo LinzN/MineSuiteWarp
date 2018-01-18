@@ -2,7 +2,7 @@ package de.linzn.mineSuite.warp.Listener;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import de.linzn.mineSuite.core.database.hashDatabase.WarpDataTable;
-import de.linzn.mineSuite.warp.Warpplugin;
+import de.linzn.mineSuite.warp.WarpPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -34,7 +34,7 @@ public class WarpListener implements Listener {
 	}
 
 	public void sendWarpMSG(final Player p) {
-		Bukkit.getScheduler().runTaskLaterAsynchronously(Warpplugin.inst(), () -> {
+		Bukkit.getScheduler().runTaskLaterAsynchronously(WarpPlugin.inst(), () -> {
 			WarpDataTable.ignoreWarp.remove(p);
 			p.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.Teleport_Warp);
 		}, 20);

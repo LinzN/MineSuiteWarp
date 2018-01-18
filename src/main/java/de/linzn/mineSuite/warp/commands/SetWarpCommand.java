@@ -1,7 +1,7 @@
 package de.linzn.mineSuite.warp.commands;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
-import de.linzn.mineSuite.warp.Warpplugin;
+import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.database.WarpSqlActions;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -18,7 +18,7 @@ public class SetWarpCommand implements CommandExecutor {
 	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
 			new LinkedBlockingQueue<Runnable>());
 
-	public SetWarpCommand(Warpplugin instance) {
+	public SetWarpCommand(WarpPlugin instance) {
 	}
 
 	@Override

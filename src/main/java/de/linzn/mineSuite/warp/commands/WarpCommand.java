@@ -2,7 +2,7 @@ package de.linzn.mineSuite.warp.commands;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import de.linzn.mineSuite.core.database.hashDatabase.WarpDataTable;
-import de.linzn.mineSuite.warp.Warpplugin;
+import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.database.WarpSqlActions;
 import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import net.md_5.bungee.api.ChatColor;
@@ -21,7 +21,7 @@ public class WarpCommand implements CommandExecutor {
 	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
 			new LinkedBlockingQueue<Runnable>());
 
-	public WarpCommand(Warpplugin instance) {
+	public WarpCommand(WarpPlugin instance) {
 
 	}
 
@@ -40,7 +40,7 @@ public class WarpCommand implements CommandExecutor {
 								WarpDataTable.lastWarpLocation.put(player1, player1.getLocation());
 								player1.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.TELEPORT_TIMER.replace("{TIME}",
 										String.valueOf(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP)));
-								Warpplugin.inst().getServer().getScheduler().runTaskLater(Warpplugin.inst(),
+								WarpPlugin.inst().getServer().getScheduler().runTaskLater(WarpPlugin.inst(),
 										new Runnable() {
 											@Override
 											public void run() {

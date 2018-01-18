@@ -10,10 +10,10 @@ import de.linzn.mineSuite.warp.commands.WarpListCommand;
 import de.linzn.mineSuite.warp.socket.JClientWarpListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Warpplugin extends JavaPlugin {
-	private static Warpplugin inst;
+public class WarpPlugin extends JavaPlugin {
+	private static WarpPlugin inst;
 
-	public static Warpplugin inst() {
+	public static WarpPlugin inst() {
 		return inst;
 	}
 
