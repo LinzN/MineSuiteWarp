@@ -1,3 +1,14 @@
+/*
+ * Copyright (C) 2018. MineGaming - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the LGPLv3 license, which unfortunately won't be
+ * written for another century.
+ *
+ *  You should have received a copy of the LGPLv3 license with
+ *  this file. If not, please write to: niklas.linz@enigmar.de
+ *
+ */
+
 package de.linzn.mineSuite.warp.commands;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
@@ -14,33 +25,33 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class DeleteWarpCommand implements CommandExecutor {
-	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
-			new LinkedBlockingQueue<>());
+    public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<>());
 
-	public DeleteWarpCommand(WarpPlugin instance) {
-	}
+    public DeleteWarpCommand(WarpPlugin instance) {
+    }
 
-	@Override
-	public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
-		final Player player = (Player) sender;
-		if (player.hasPermission("mineSuite.warp.delwarp")) {
-			this.executorServiceCommands.submit(() -> {
-				if (sender instanceof Player) {
-					if (args.length >= 1) {
-						String warpName = args[0].toLowerCase();
+    @Override
+    public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
+        final Player player = (Player) sender;
+        if (player.hasPermission("mineSuite.warp.delwarp")) {
+            this.executorServiceCommands.submit(() -> {
+                if (sender instanceof Player) {
+                    if (args.length >= 1) {
+                        String warpName = args[0].toLowerCase();
 
-						WarpSqlActions.delWarp(warpName);
-						sender.sendMessage(ChatColor.GREEN + "Der Warp " + ChatColor.YELLOW + warpName
-								+ ChatColor.GREEN + " wurde entfernt!");
-					} else {
-						sender.sendMessage("Du musst einen Warpnamen angeben!");
-					}
-				}
-			});
-		} else {
-			player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.NO_PERMISSIONS);
+                        WarpSqlActions.delWarp(warpName);
+                        sender.sendMessage(ChatColor.GREEN + "Der Warp " + ChatColor.YELLOW + warpName
+                                + ChatColor.GREEN + " wurde entfernt!");
+                    } else {
+                        sender.sendMessage("Du musst einen Warpnamen angeben!");
+                    }
+                }
+            });
+        } else {
+            player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.NO_PERMISSIONS);
 
-		}
-		return false;
-	}
+        }
+        return false;
+    }
 }
