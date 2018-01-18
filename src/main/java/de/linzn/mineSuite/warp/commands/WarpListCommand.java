@@ -38,7 +38,7 @@ public class WarpListCommand implements CommandExecutor {
                         warpname.add(s.getKey());
                     }
 
-                    int pageNumb = 0;
+                    int pageNumb;
                     try {
                         if (args.length == 1) {
                             int number = Integer.valueOf(args[0]);

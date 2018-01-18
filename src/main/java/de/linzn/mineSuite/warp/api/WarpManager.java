@@ -30,23 +30,26 @@ public class WarpManager {
         }
         Player p = Bukkit.getPlayer(player);
         if (p != null) {
-            // Check if Block is safe
-            if (LocationUtil.isBlockUnsafe(t.getWorld(), t.getBlockX(), t.getBlockY(), t.getBlockZ())) {
-                try {
-                    Location l = LocationUtil.getSafeDestination(p, t);
-                    if (l != null) {
-                        p.teleport(l);
-                        p.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.Teleport_Warp);
-                    } else {
-                        p.sendMessage(ChatColor.RED + "Unable to find a safe location for teleport.");
+            Bukkit.getScheduler().runTask(WarpPlugin.inst(), () -> {
+
+                // Check if Block is safe
+                if (LocationUtil.isBlockUnsafe(t.getWorld(), t.getBlockX(), t.getBlockY(), t.getBlockZ())) {
+                    try {
+                        Location l = LocationUtil.getSafeDestination(p, t);
+                        if (l != null) {
+                            p.teleport(l);
+                            p.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.Teleport_Warp);
+                        } else {
+                            p.sendMessage(ChatColor.RED + "Unable to find a safe location for teleport.");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else {
+                    p.teleport(t);
+                    p.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.Teleport_Warp);
                 }
-            } else {
-                p.teleport(t);
-                p.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.Teleport_Warp);
-            }
+            });
         } else {
             WarpDataTable.pendingWarpLocations.put(player, t);
             Bukkit.getScheduler().runTaskLaterAsynchronously(WarpPlugin.inst(), () -> {

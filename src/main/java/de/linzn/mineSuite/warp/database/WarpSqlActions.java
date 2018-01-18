@@ -18,7 +18,7 @@ public class WarpSqlActions {
 							   float yaw, float pitch, int visible) {
 		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("MineSuiteCore");
+			Connection conn = manager.getConnection("MineSuiteWarp");
 			PreparedStatement sql = conn
 					.prepareStatement("SELECT warp_name FROM warps WHERE warp_name = '" + warp + "';");
 			ResultSet result = sql.executeQuery();
@@ -38,7 +38,7 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sql.close();
-			manager.release("MineSuiteCore", conn);
+			manager.release("MineSuiteWarp", conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -48,7 +48,7 @@ public class WarpSqlActions {
 	public static void delWarp(String warp) {
 		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("MineSuiteCore");
+			Connection conn = manager.getConnection("MineSuiteWarp");
 			PreparedStatement sql = conn
 					.prepareStatement("SELECT warp_name FROM warps WHERE warp_name = '" + warp + "';");
 			ResultSet result = sql.executeQuery();
@@ -59,7 +59,7 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sql.close();
-			manager.release("MineSuiteCore", conn);
+			manager.release("MineSuiteWarp", conn);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -67,11 +67,11 @@ public class WarpSqlActions {
 	}
 
 	public static List<String> getWarp(String warp) {
-		final List<String> rlist = new ArrayList<String>();
+		final List<String> rlist = new ArrayList<>();
 
 		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("MineSuiteCore");
+			Connection conn = manager.getConnection("MineSuiteWarp");
 			PreparedStatement sql = conn.prepareStatement(
 					"SELECT world, server, x, y, z, yaw, pitch FROM warps WHERE warp_name = '" + warp + "';");
 			final ResultSet result = sql.executeQuery();
@@ -87,7 +87,7 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sql.close();
-			manager.release("MineSuiteCore", conn);
+			manager.release("MineSuiteWarp", conn);
 
 			return rlist;
 
@@ -101,7 +101,7 @@ public class WarpSqlActions {
 		boolean isWarp = false;
 		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
-			Connection conn = manager.getConnection("MineSuiteCore");
+			Connection conn = manager.getConnection("MineSuiteWarp");
 			PreparedStatement sql = conn
 					.prepareStatement("SELECT warp_name FROM warps WHERE warp_name = '" + warp + "';");
 			ResultSet result = sql.executeQuery();
@@ -112,7 +112,7 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sql.close();
-			manager.release("MineSuiteCore", conn);
+			manager.release("MineSuiteWarp", conn);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -124,7 +124,7 @@ public class WarpSqlActions {
 		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
 		try {
 
-			Connection conn = manager.getConnection("MineSuiteCore");
+			Connection conn = manager.getConnection("MineSuiteWarp");
 			PreparedStatement sel;
 			if (visible == 0) {
 				sel = conn.prepareStatement("SELECT * FROM warps;");
@@ -142,7 +142,7 @@ public class WarpSqlActions {
 			}
 			result.close();
 			sel.close();
-			manager.release("MineSuiteCore", conn);
+			manager.release("MineSuiteWarp", conn);
 
 			return list;
 		} catch (SQLException e) {
