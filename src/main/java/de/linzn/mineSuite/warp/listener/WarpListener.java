@@ -9,7 +9,7 @@
  *
  */
 
-package de.linzn.mineSuite.warp.Listener;
+package de.linzn.mineSuite.warp.listener;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import de.linzn.mineSuite.core.database.hashDatabase.WarpDataTable;

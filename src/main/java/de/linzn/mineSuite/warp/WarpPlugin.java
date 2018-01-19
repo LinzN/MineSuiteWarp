@@ -13,11 +13,11 @@ package de.linzn.mineSuite.warp;
 
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
-import de.linzn.mineSuite.warp.Listener.WarpListener;
 import de.linzn.mineSuite.warp.commands.DeleteWarpCommand;
 import de.linzn.mineSuite.warp.commands.SetWarpCommand;
 import de.linzn.mineSuite.warp.commands.WarpCommand;
 import de.linzn.mineSuite.warp.commands.WarpListCommand;
+import de.linzn.mineSuite.warp.listener.WarpListener;
 import de.linzn.mineSuite.warp.socket.JClientWarpListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
