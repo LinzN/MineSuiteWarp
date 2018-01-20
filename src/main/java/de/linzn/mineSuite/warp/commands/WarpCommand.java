@@ -14,7 +14,6 @@ package de.linzn.mineSuite.warp.commands;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import de.linzn.mineSuite.core.database.hashDatabase.WarpDataTable;
 import de.linzn.mineSuite.warp.WarpPlugin;
-import de.linzn.mineSuite.warp.database.WarpSqlActions;
 import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
@@ -23,14 +22,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class WarpCommand implements CommandExecutor {
 	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
-			new LinkedBlockingQueue<Runnable>());
+			new LinkedBlockingQueue<>());
 
 	public WarpCommand(WarpPlugin instance) {
 
@@ -38,64 +36,39 @@ public class WarpCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
-		final Player player = (Player) sender;
+		Player player = (Player) sender;
 		if (player.hasPermission("mineSuite.warp.warp")) {
 			this.executorServiceCommands.submit(() -> {
 				if (sender instanceof Player) {
-					final Player player1 = (Player) sender;
 					if ((args.length >= 1)) {
 						final String warpName = args[0].toLowerCase();
 
-						if (WarpSqlActions.isWarp(warpName)) {
-							if (!player1.hasPermission("xeonSuite.bypass")) {
-								WarpDataTable.lastWarpLocation.put(player1, player1.getLocation());
-								player1.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.TELEPORT_TIMER.replace("{TIME}",
-										String.valueOf(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP)));
-								WarpPlugin.inst().getServer().getScheduler().runTaskLater(WarpPlugin.inst(),
-										new Runnable() {
-											@Override
-											public void run() {
+						if (!player.hasPermission("mineSuite.bypass")) {
+							WarpDataTable.lastWarpLocation.put(player, player.getLocation());
+							player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.TELEPORT_TIMER.replace("{TIME}",
+									String.valueOf(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP)));
+							WarpPlugin.inst().getServer().getScheduler().runTaskLater(WarpPlugin.inst(),
+									() -> {
 
-												Location loc = WarpDataTable.lastWarpLocation.get(player1);
-												WarpDataTable.lastWarpLocation.remove(player1);
-												if ((loc != null) && (loc.getBlock()
-														.equals(player1.getLocation().getBlock()))) {
-													List<String> list = WarpSqlActions.getWarp(warpName);
-													String world = list.get(1);
-													String server = list.get(2);
-													double x = Double.parseDouble(list.get(3));
-													double y = Double.parseDouble(list.get(4));
-													double z = Double.parseDouble(list.get(5));
-													float yaw = Float.parseFloat(list.get(6));
-													float pitch = Float.parseFloat(list.get(7));
-													JClientWarpOutput.sendTeleportToWarpOut(player1.getName(), server,
-															world, x, y, z, yaw, pitch);
+										Location loc = WarpDataTable.lastWarpLocation.get(player);
+										WarpDataTable.lastWarpLocation.remove(player);
+										if ((loc != null) && (loc.getBlock()
+												.equals(player.getLocation().getBlock()))) {
 
-													return;
-												} else {
-													player1.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.TELEPORT_MOVE_CANCEL);
-												}
-											}
-										}, 20L * MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP);
-							} else {
-								List<String> list = WarpSqlActions.getWarp(warpName);
-								String world = list.get(1);
-								String server = list.get(2);
+											JClientWarpOutput.sendTeleportToWarpOut(player.getUniqueId(), warpName);
 
-								double x = Double.parseDouble(list.get(3));
-								double y = Double.parseDouble(list.get(4));
-								double z = Double.parseDouble(list.get(5));
-								float yaw = Float.parseFloat(list.get(6));
-								float pitch = Float.parseFloat(list.get(7));
-
-								JClientWarpOutput.sendTeleportToWarpOut(player1.getName(), server, world, x, y, z, yaw,
-										pitch);
-
-								return;
-							}
+											return;
+										} else {
+											player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.TELEPORT_MOVE_CANCEL);
+										}
+									}, 20L * MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP);
 						} else {
-							player1.sendMessage(ChatColor.GOLD + "Dieser Warp existiert nicht!");
+
+							JClientWarpOutput.sendTeleportToWarpOut(player.getUniqueId(), warpName);
+
+							return;
 						}
+
 					} else {
 						sender.sendMessage(ChatColor.RED + "Du musst einen Warp angeben. Beispiel: /w lobby");
 					}

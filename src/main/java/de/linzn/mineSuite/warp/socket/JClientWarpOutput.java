@@ -12,22 +12,48 @@
 package de.linzn.mineSuite.warp.socket;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
+import org.bukkit.Location;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 
 public class JClientWarpOutput {
 
-    public static void sendTeleportToWarpOut(String player, String server, String world, Double x, Double y, Double z,
-                                             Float yaw, Float pitch) {
+    public static void sendTeleportToWarpOut(UUID playerUUID, String warpName) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
 
         try {
             dataOutputStream.writeUTF("client_warp_teleport-warp");
-            dataOutputStream.writeUTF(player);
+            dataOutputStream.writeUTF(warpName);
+            dataOutputStream.writeUTF(playerUUID.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineSuiteWarp", byteArrayOutputStream.toByteArray());
+
+    }
+
+    public static void sendWarpCreate(UUID playerUUID, String warpName, Location location, int visible) {
+        String server = MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.BUNGEE_SERVER_NAME;
+        String world = location.getWorld().getName();
+        Double x = location.getX();
+        Double y = location.getY();
+        Double z = location.getZ();
+        Float yaw = location.getYaw();
+        Float pitch = location.getPitch();
+
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+
+        try {
+            dataOutputStream.writeUTF("client_warp_create-warp");
+            dataOutputStream.writeUTF(warpName);
+            dataOutputStream.writeUTF(playerUUID.toString());
             dataOutputStream.writeUTF(server);
             dataOutputStream.writeUTF(world);
             dataOutputStream.writeDouble(x);
@@ -35,11 +61,28 @@ public class JClientWarpOutput {
             dataOutputStream.writeDouble(z);
             dataOutputStream.writeFloat(yaw);
             dataOutputStream.writeFloat(pitch);
+            dataOutputStream.writeInt(visible);
         } catch (IOException e) {
             e.printStackTrace();
         }
         MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineSuiteWarp", byteArrayOutputStream.toByteArray());
 
     }
+
+    public static void sendWarpRemove(UUID playerUUID, String warpName) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+
+        try {
+            dataOutputStream.writeUTF("client_warp_remove-warp");
+            dataOutputStream.writeUTF(warpName);
+            dataOutputStream.writeUTF(playerUUID.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineSuiteWarp", byteArrayOutputStream.toByteArray());
+
+    }
+
 
 }

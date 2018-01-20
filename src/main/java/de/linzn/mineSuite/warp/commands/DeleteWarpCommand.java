@@ -13,8 +13,7 @@ package de.linzn.mineSuite.warp.commands;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import de.linzn.mineSuite.warp.WarpPlugin;
-import de.linzn.mineSuite.warp.database.WarpSqlActions;
-import org.bukkit.ChatColor;
+import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,10 +38,7 @@ public class DeleteWarpCommand implements CommandExecutor {
                 if (sender instanceof Player) {
                     if (args.length >= 1) {
                         String warpName = args[0].toLowerCase();
-
-                        WarpSqlActions.delWarp(warpName);
-                        sender.sendMessage(ChatColor.GREEN + "Der Warp " + ChatColor.YELLOW + warpName
-                                + ChatColor.GREEN + " wurde entfernt!");
+                        JClientWarpOutput.sendWarpRemove(player.getUniqueId(), warpName);
                     } else {
                         sender.sendMessage("Du musst einen Warpnamen angeben!");
                     }
