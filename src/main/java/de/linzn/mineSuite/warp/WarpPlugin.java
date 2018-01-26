@@ -17,7 +17,6 @@ import de.linzn.mineSuite.warp.commands.DeleteWarpCommand;
 import de.linzn.mineSuite.warp.commands.SetWarpCommand;
 import de.linzn.mineSuite.warp.commands.WarpCommand;
 import de.linzn.mineSuite.warp.commands.WarpListCommand;
-import de.linzn.mineSuite.warp.listener.WarpListener;
 import de.linzn.mineSuite.warp.socket.JClientWarpListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,7 +32,6 @@ public class WarpPlugin extends JavaPlugin {
         inst = this;
         loadCommands();
         MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.registerIncomingDataListener("mineSuiteWarp", new JClientWarpListener());
-        getServer().getPluginManager().registerEvents(new WarpListener(), this);
     }
 
     @Override

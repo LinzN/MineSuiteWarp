@@ -12,7 +12,7 @@
 package de.linzn.mineSuite.warp.api;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
-import de.linzn.mineSuite.core.database.hashDatabase.WarpDataTable;
+import de.linzn.mineSuite.core.database.hashDatabase.PendingTeleportsData;
 import de.linzn.mineSuite.core.utils.LocationUtil;
 import de.linzn.mineSuite.warp.WarpPlugin;
 import org.bukkit.Bukkit;
@@ -21,10 +21,12 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 
 public class WarpManager {
 
-    public static void teleportToWarp(final String player, String world, double x, double y, double z, float yaw,
+    public static void teleportToWarp(UUID playerUUID, String world, double x, double y, double z, float yaw,
                                       float pitch) {
         World w = Bukkit.getWorld(world);
         Location t;
@@ -35,7 +37,7 @@ public class WarpManager {
             w = Bukkit.getWorlds().get(0);
             t = w.getSpawnLocation();
         }
-        Player p = Bukkit.getPlayer(player);
+        Player p = Bukkit.getPlayer(playerUUID);
         if (p != null) {
             Bukkit.getScheduler().runTask(WarpPlugin.inst(), () -> {
 
@@ -58,10 +60,10 @@ public class WarpManager {
                 }
             });
         } else {
-            WarpDataTable.pendingWarpLocations.put(player, t);
+            PendingTeleportsData.pendingLocations.put(playerUUID, t);
             Bukkit.getScheduler().runTaskLaterAsynchronously(WarpPlugin.inst(), () -> {
-                if (WarpDataTable.pendingWarpLocations.containsKey(player)) {
-                    WarpDataTable.pendingWarpLocations.remove(player);
+                if (PendingTeleportsData.pendingLocations.containsKey(playerUUID)) {
+                    PendingTeleportsData.pendingLocations.remove(playerUUID);
                 }
 
             }, 100L);

@@ -35,7 +35,8 @@ public class JClientWarpListener implements IncomingDataListener {
             }
             subChannel = in.readUTF();
             if (subChannel.equals("server_warp_teleport-warp")) {
-                WarpManager.teleportToWarp(in.readUTF(), in.readUTF(), in.readDouble(), in.readDouble(),
+                UUID playerUUID = UUID.fromString(in.readUTF());
+                WarpManager.teleportToWarp(playerUUID, in.readUTF(), in.readDouble(), in.readDouble(),
                         in.readDouble(), in.readFloat(), in.readFloat());
             }
 

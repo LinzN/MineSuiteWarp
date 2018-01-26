@@ -12,7 +12,7 @@
 package de.linzn.mineSuite.warp.commands;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
-import de.linzn.mineSuite.core.database.hashDatabase.WarpDataTable;
+import de.linzn.mineSuite.core.database.hashDatabase.PendingTeleportsData;
 import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import net.md_5.bungee.api.ChatColor;
@@ -27,56 +27,54 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class WarpCommand implements CommandExecutor {
-	public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
-			new LinkedBlockingQueue<>());
+    public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<>());
 
-	public WarpCommand(WarpPlugin instance) {
+    public WarpCommand(WarpPlugin instance) {
 
-	}
+    }
 
-	@Override
-	public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
-		Player player = (Player) sender;
-		if (player.hasPermission("mineSuite.warp.warp")) {
-			this.executorServiceCommands.submit(() -> {
-				if (sender instanceof Player) {
-					if ((args.length >= 1)) {
-						final String warpName = args[0].toLowerCase();
+    @Override
+    public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
+        Player player = (Player) sender;
+        if (player.hasPermission("mineSuite.warp.warp")) {
+            this.executorServiceCommands.submit(() -> {
+                if (sender instanceof Player) {
+                    if ((args.length >= 1)) {
+                        final String warpName = args[0].toLowerCase();
 
-						if (!player.hasPermission("mineSuite.bypass")) {
-							WarpDataTable.lastWarpLocation.put(player, player.getLocation());
-							player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.TELEPORT_TIMER.replace("{TIME}",
-									String.valueOf(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP)));
-							WarpPlugin.inst().getServer().getScheduler().runTaskLater(WarpPlugin.inst(),
-									() -> {
+                        if (!player.hasPermission("mineSuite.bypass")) {
+                            PendingTeleportsData.checkMoveLocation.put(player.getUniqueId(), player.getLocation());
+                            player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.TELEPORT_TIMER.replace("{TIME}",
+                                    String.valueOf(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP)));
+                            WarpPlugin.inst().getServer().getScheduler().runTaskLater(WarpPlugin.inst(),
+                                    () -> {
 
-										Location loc = WarpDataTable.lastWarpLocation.get(player);
-										WarpDataTable.lastWarpLocation.remove(player);
-										if ((loc != null) && (loc.getBlock()
-												.equals(player.getLocation().getBlock()))) {
+                                        Location loc = PendingTeleportsData.checkMoveLocation.get(player.getUniqueId());
+                                        PendingTeleportsData.checkMoveLocation.remove(player.getUniqueId());
+                                        if ((loc != null) && (loc.getBlock()
+                                                .equals(player.getLocation().getBlock()))) {
+                                            JClientWarpOutput.sendTeleportToWarpOut(player.getUniqueId(), warpName);
+                                            return;
+                                        } else {
+                                            player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.TELEPORT_MOVE_CANCEL);
+                                        }
+                                    }, 20L * MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP);
+                        } else {
 
-											JClientWarpOutput.sendTeleportToWarpOut(player.getUniqueId(), warpName);
+                            JClientWarpOutput.sendTeleportToWarpOut(player.getUniqueId(), warpName);
 
-											return;
-										} else {
-											player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.TELEPORT_MOVE_CANCEL);
-										}
-									}, 20L * MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP);
-						} else {
+                            return;
+                        }
 
-							JClientWarpOutput.sendTeleportToWarpOut(player.getUniqueId(), warpName);
-
-							return;
-						}
-
-					} else {
-						sender.sendMessage(ChatColor.RED + "Du musst einen Warp angeben. Beispiel: /w lobby");
-					}
-				}
-			});
-		} else {
-			player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.NO_PERMISSIONS);
-		}
-		return false;
-	}
+                    } else {
+                        sender.sendMessage(ChatColor.RED + "Du musst einen Warp angeben. Beispiel: /w lobby");
+                    }
+                }
+            });
+        } else {
+            player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.NO_PERMISSIONS);
+        }
+        return false;
+    }
 }

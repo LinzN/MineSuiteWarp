@@ -24,35 +24,35 @@ import java.util.UUID;
 public class WarpSqlActions {
 
 
-	public static HashMap<String, UUID> getWarps(int visible) {
-		MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
-		try {
+    public static HashMap<String, UUID> getWarps(int visible) {
+        MySQLConnectionManager manager = MySQLConnectionManager.DEFAULT;
+        try {
 
-			Connection conn = manager.getConnection("MineSuiteWarp");
-			PreparedStatement sel;
-			if (visible == 0) {
-				sel = conn.prepareStatement("SELECT * FROM warps;");
-			} else {
-				sel = conn.prepareStatement("SELECT * FROM warps WHERE visible = '" + visible + "';");
-			}
+            Connection conn = manager.getConnection("MineSuiteWarp");
+            PreparedStatement sel;
+            if (visible == 0) {
+                sel = conn.prepareStatement("SELECT * FROM warps;");
+            } else {
+                sel = conn.prepareStatement("SELECT * FROM warps WHERE visible = '" + visible + "';");
+            }
 
-			HashMap<String, UUID> list = new HashMap<String, UUID>();
+            HashMap<String, UUID> list = new HashMap<String, UUID>();
 
-			ResultSet result = sel.executeQuery();
-			if (result != null) {
-				while (result.next()) {
-					list.put(result.getString("warp_name"), UUID.fromString(result.getString("player")));
-				}
-			}
-			result.close();
-			sel.close();
-			manager.release("MineSuiteWarp", conn);
+            ResultSet result = sel.executeQuery();
+            if (result != null) {
+                while (result.next()) {
+                    list.put(result.getString("warp_name"), UUID.fromString(result.getString("player")));
+                }
+            }
+            result.close();
+            sel.close();
+            manager.release("MineSuiteWarp", conn);
 
-			return list;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
