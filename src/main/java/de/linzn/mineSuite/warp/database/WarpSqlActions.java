@@ -31,9 +31,9 @@ public class WarpSqlActions {
             Connection conn = manager.getConnection("MineSuiteWarp");
             PreparedStatement sel;
             if (visible == 0) {
-                sel = conn.prepareStatement("SELECT * FROM warps;");
+                sel = conn.prepareStatement("SELECT * FROM module_warp_warps;");
             } else {
-                sel = conn.prepareStatement("SELECT * FROM warps WHERE visible = '" + visible + "';");
+                sel = conn.prepareStatement("SELECT * FROM module_warp_warps WHERE visible = '" + visible + "';");
             }
 
             HashMap<String, UUID> list = new HashMap<String, UUID>();
@@ -43,8 +43,8 @@ public class WarpSqlActions {
                 while (result.next()) {
                     list.put(result.getString("warp_name"), UUID.fromString(result.getString("player")));
                 }
+                result.close();
             }
-            result.close();
             sel.close();
             manager.release("MineSuiteWarp", conn);
 

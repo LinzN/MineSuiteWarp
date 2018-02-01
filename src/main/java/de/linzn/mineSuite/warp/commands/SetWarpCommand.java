@@ -11,7 +11,7 @@
 
 package de.linzn.mineSuite.warp.commands;
 
-import de.linzn.mineSuite.core.MineSuiteCorePlugin;
+import de.linzn.mineSuite.core.configurations.YamlFiles.GeneralLanguage;
 import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import org.bukkit.Location;
@@ -25,7 +25,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class SetWarpCommand implements CommandExecutor {
-    public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
+    private ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>());
 
     public SetWarpCommand(WarpPlugin instance) {
@@ -36,25 +36,22 @@ public class SetWarpCommand implements CommandExecutor {
         final Player player = (Player) sender;
         if (player.hasPermission("mineSuite.warp.setwarp")) {
             this.executorServiceCommands.submit(() -> {
-                if (sender instanceof Player) {
-                    Location coords = player.getLocation();
-                    if (args.length >= 1) {
-                        String warpName = args[0].toLowerCase();
-                        int visible = 1;
-                        if (args.length >= 2) {
-                            if (args[1].equalsIgnoreCase("false")) {
-                                visible = 0;
-                            }
+                Location coords = player.getLocation();
+                if (args.length >= 1) {
+                    String warpName = args[0].toLowerCase();
+                    int visible = 1;
+                    if (args.length >= 2) {
+                        if (args[1].equalsIgnoreCase("false")) {
+                            visible = 0;
                         }
-                        JClientWarpOutput.sendWarpCreate(player.getUniqueId(), warpName, coords, visible);
-                        return;
-                    } else {
-                        sender.sendMessage("Du musst einen Warpnamen angeben!");
                     }
+                    JClientWarpOutput.sendWarpCreate(player.getUniqueId(), warpName, coords, visible);
+                } else {
+                    sender.sendMessage(GeneralLanguage.warp_NO_WARP_ARGUMENT);
                 }
             });
         } else {
-            player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.NO_PERMISSIONS);
+            player.sendMessage(GeneralLanguage.global_NO_PERMISSIONS);
         }
         return false;
     }

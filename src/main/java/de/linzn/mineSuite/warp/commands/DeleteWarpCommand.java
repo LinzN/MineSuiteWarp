@@ -11,7 +11,7 @@
 
 package de.linzn.mineSuite.warp.commands;
 
-import de.linzn.mineSuite.core.MineSuiteCorePlugin;
+import de.linzn.mineSuite.core.configurations.YamlFiles.GeneralLanguage;
 import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import org.bukkit.command.Command;
@@ -24,7 +24,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class DeleteWarpCommand implements CommandExecutor {
-    public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
+    private ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>());
 
     public DeleteWarpCommand(WarpPlugin instance) {
@@ -35,17 +35,15 @@ public class DeleteWarpCommand implements CommandExecutor {
         final Player player = (Player) sender;
         if (player.hasPermission("mineSuite.warp.delwarp")) {
             this.executorServiceCommands.submit(() -> {
-                if (sender instanceof Player) {
-                    if (args.length >= 1) {
-                        String warpName = args[0].toLowerCase();
-                        JClientWarpOutput.sendWarpRemove(player.getUniqueId(), warpName);
-                    } else {
-                        sender.sendMessage("Du musst einen Warpnamen angeben!");
-                    }
+                if (args.length >= 1) {
+                    String warpName = args[0].toLowerCase();
+                    JClientWarpOutput.sendWarpRemove(player.getUniqueId(), warpName);
+                } else {
+                    sender.sendMessage(GeneralLanguage.warp_NO_WARP_ARGUMENT);
                 }
             });
         } else {
-            player.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.NO_PERMISSIONS);
+            player.sendMessage(GeneralLanguage.global_NO_PERMISSIONS);
 
         }
         return false;

@@ -11,7 +11,7 @@
 
 package de.linzn.mineSuite.warp.api;
 
-import de.linzn.mineSuite.core.MineSuiteCorePlugin;
+import de.linzn.mineSuite.core.configurations.YamlFiles.GeneralLanguage;
 import de.linzn.mineSuite.core.database.hashDatabase.PendingTeleportsData;
 import de.linzn.mineSuite.core.utils.LocationUtil;
 import de.linzn.mineSuite.warp.WarpPlugin;
@@ -47,7 +47,7 @@ public class WarpManager {
                         Location l = LocationUtil.getSafeDestination(p, t);
                         if (l != null) {
                             p.teleport(l);
-                            p.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.Teleport_Warp);
+                            p.sendMessage(GeneralLanguage.teleport_success);
                         } else {
                             p.sendMessage(ChatColor.RED + "Unable to find a safe location for teleport.");
                         }
@@ -56,7 +56,7 @@ public class WarpManager {
                     }
                 } else {
                     p.teleport(t);
-                    p.sendMessage(MineSuiteCorePlugin.getInstance().getMineConfigs().generalLanguage.Teleport_Warp);
+                    p.sendMessage(GeneralLanguage.teleport_success);
                 }
             });
         } else {
