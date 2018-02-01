@@ -46,6 +46,7 @@ public class WarpManager {
                     try {
                         Location l = LocationUtil.getSafeDestination(p, t);
                         if (l != null) {
+                            p.setFallDistance(0F);
                             p.teleport(l);
                             p.sendMessage(GeneralLanguage.teleport_success);
                         } else {
@@ -55,6 +56,7 @@ public class WarpManager {
                         e.printStackTrace();
                     }
                 } else {
+                    p.setFallDistance(0F);
                     p.teleport(t);
                     p.sendMessage(GeneralLanguage.teleport_success);
                 }
