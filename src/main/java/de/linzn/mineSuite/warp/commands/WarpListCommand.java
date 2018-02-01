@@ -13,14 +13,12 @@ package de.linzn.mineSuite.warp.commands;
 
 import de.linzn.mineSuite.core.configurations.YamlFiles.GeneralLanguage;
 import de.linzn.mineSuite.warp.WarpPlugin;
-import de.linzn.mineSuite.warp.database.WarpSqlActions;
 import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -41,13 +39,6 @@ public class WarpListCommand implements CommandExecutor {
                 if (player.hasPermission("mineSuite.bypass")) {
                     visible = 0;
                 }
-                HashMap<String, UUID> list = WarpSqlActions.getWarps(visible);
-                List<String> warpname = new ArrayList<>();
-
-                for (Map.Entry<String, UUID> s : list.entrySet()) {
-                    warpname.add(s.getKey());
-                }
-
                 int pageNumb;
                 try {
                     if (args.length == 1) {
