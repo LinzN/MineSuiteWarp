@@ -84,5 +84,22 @@ public class JClientWarpOutput {
 
     }
 
+    public static void sendGetWarpsList(UUID playerUUID, int pageid, int showAll) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+
+        try {
+            dataOutputStream.writeUTF("client_warp_get-warps");
+            dataOutputStream.writeUTF(playerUUID.toString());
+            dataOutputStream.writeInt(pageid);
+            dataOutputStream.writeInt(showAll);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineSuiteWarp", byteArrayOutputStream.toByteArray());
+
+    }
+
+
 
 }

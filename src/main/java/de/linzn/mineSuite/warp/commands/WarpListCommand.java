@@ -14,7 +14,7 @@ package de.linzn.mineSuite.warp.commands;
 import de.linzn.mineSuite.core.configurations.YamlFiles.GeneralLanguage;
 import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.database.WarpSqlActions;
-import org.bukkit.Bukkit;
+import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -65,40 +65,7 @@ public class WarpListCommand implements CommandExecutor {
                     player.sendMessage("No number");
                     return;
                 }
-                // int counter = pageNumb * 10 + 1;
-                int rgCount = list.size();
-                if ((pageNumb * 6 + 1) > rgCount) {
-                    sender.sendMessage("So viele Seiten für Warps gibt es nicht!");
-                    return;
-                }
-                Collections.sort(warpname);
-                sender.sendMessage("§aDie Warpliste von MineGaming");
-                sender.sendMessage("§9Warpname?   §dBesitzer? ");
-                int counter = 1;
-                List<String> warplist = warpname.subList(pageNumb * 6,
-                        pageNumb * 6 + 6 > rgCount ? rgCount : pageNumb * 6 + 6);
-                for (String wl : warplist) {
-                    sender.sendMessage("§aWName: §9" + wl + " §agehört §d"
-                            + Bukkit.getOfflinePlayer(list.get(wl)).getName());
-                    counter++;
-                }
-
-                if (counter >= 7) {
-
-                    int pageSeite;
-                    if (pageNumb == 0) {
-                        pageSeite = 2;
-                    } else {
-                        pageSeite = (pageNumb + 2);
-                    }
-                    sender.sendMessage("§aMehr auf Seite §e" + pageSeite + " §amit §e/warps " + pageSeite);
-                }
-
-                if (counter <= 6 && pageNumb != 0) {
-                    int pageSeite = (pageNumb);
-
-                    sender.sendMessage("§aZurück auf Seite §e" + pageSeite + "§a mit §e/warps " + pageSeite);
-                }
+                JClientWarpOutput.sendGetWarpsList(player.getUniqueId(), pageNumb, visible);
 
             });
         } else {
