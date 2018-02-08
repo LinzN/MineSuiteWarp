@@ -12,12 +12,10 @@
 package de.linzn.mineSuite.warp;
 
 
-import de.linzn.mineSuite.core.MineSuiteCorePlugin;
-import de.linzn.mineSuite.warp.commands.DeleteWarpCommand;
 import de.linzn.mineSuite.warp.commands.SetWarpCommand;
+import de.linzn.mineSuite.warp.commands.UnsetWarpCommand;
 import de.linzn.mineSuite.warp.commands.WarpCommand;
 import de.linzn.mineSuite.warp.commands.WarpListCommand;
-import de.linzn.mineSuite.warp.socket.JClientWarpListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class WarpPlugin extends JavaPlugin {
@@ -31,18 +29,17 @@ public class WarpPlugin extends JavaPlugin {
     public void onEnable() {
         inst = this;
         loadCommands();
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.registerIncomingDataListener("mineSuiteWarp", new JClientWarpListener());
     }
 
     @Override
     public void onDisable() {
     }
 
-    public void loadCommands() {
-        getCommand("warp").setExecutor(new WarpCommand(this));
-        getCommand("setwarp").setExecutor(new SetWarpCommand(this));
-        getCommand("warps").setExecutor(new WarpListCommand(this));
-        getCommand("delwarp").setExecutor(new DeleteWarpCommand(this));
+    private void loadCommands() {
+        getCommand("warp").setExecutor(new WarpCommand());
+        getCommand("setwarp").setExecutor(new SetWarpCommand());
+        getCommand("warps").setExecutor(new WarpListCommand());
+        getCommand("unsetwarp").setExecutor(new UnsetWarpCommand());
     }
 
 }

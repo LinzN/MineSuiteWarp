@@ -15,7 +15,7 @@ commands:
     aliases: [warpto, w]
   warps:
     description: Get Warplist.
-  delwarp:
+  unsetwarp:
     description: Delete a Warp
 permissions:
     mineSuite.warp.team:
@@ -23,7 +23,7 @@ permissions:
         children:
             mineSuite.warp.user: true
             mineSuite.warp.setwarp: true
-            mineSuite.warp.delwarp: true
+            mineSuite.warp.unsetwarp: true
     mineSuite.warp.user:
         description: Alle User Permissions
         children:
@@ -38,6 +38,6 @@ permissions:
     mineSuite.warp.warps:
         description: Warplist
         default: op
-    mineSuite.warp.delwarp:
+    mineSuite.warp.unsetwarp:
         description: Delwarp
         default: op

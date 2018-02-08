@@ -29,10 +29,6 @@ public class WarpCommand implements CommandExecutor {
     private ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>());
 
-    public WarpCommand(WarpPlugin instance) {
-
-    }
-
     @Override
     public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {
         Player player = (Player) sender;

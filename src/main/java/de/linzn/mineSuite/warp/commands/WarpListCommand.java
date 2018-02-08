@@ -12,7 +12,6 @@
 package de.linzn.mineSuite.warp.commands;
 
 import de.linzn.mineSuite.core.configurations.YamlFiles.GeneralLanguage;
-import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,11 +23,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class WarpListCommand implements CommandExecutor {
-    public ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
+    private ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>());
-
-    public WarpListCommand(WarpPlugin instance) {
-    }
 
     @Override
     public boolean onCommand(final CommandSender sender, Command cmd, String label, final String[] args) {

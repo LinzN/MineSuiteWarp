@@ -12,7 +12,6 @@
 package de.linzn.mineSuite.warp.commands;
 
 import de.linzn.mineSuite.core.configurations.YamlFiles.GeneralLanguage;
-import de.linzn.mineSuite.warp.WarpPlugin;
 import de.linzn.mineSuite.warp.socket.JClientWarpOutput;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -27,9 +26,6 @@ import java.util.concurrent.TimeUnit;
 public class SetWarpCommand implements CommandExecutor {
     private ThreadPoolExecutor executorServiceCommands = new ThreadPoolExecutor(1, 1, 250L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>());
-
-    public SetWarpCommand(WarpPlugin instance) {
-    }
 
     @Override
     public boolean onCommand(final CommandSender sender, Command cmnd, String label, final String[] args) {
@@ -47,7 +43,7 @@ public class SetWarpCommand implements CommandExecutor {
                     }
                     JClientWarpOutput.sendWarpCreate(player.getUniqueId(), warpName, coords, visible);
                 } else {
-                    sender.sendMessage(GeneralLanguage.warp_NO_WARP_ARGUMENT);
+                    sender.sendMessage(GeneralLanguage.warp_SETWARP_USAGE);
                 }
             });
         } else {
