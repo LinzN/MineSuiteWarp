@@ -11,7 +11,6 @@
 
 package de.linzn.mineSuite.warp.commands;
 
-import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import de.linzn.mineSuite.core.configurations.YamlFiles.GeneralLanguage;
 import de.linzn.mineSuite.core.database.hashDatabase.PendingTeleportsData;
 import de.linzn.mineSuite.warp.WarpPlugin;
@@ -38,9 +37,8 @@ public class WarpCommand implements CommandExecutor {
                 this.executorServiceCommands.submit(() -> {
                     if ((args.length >= 1)) {
                         final String warpName = args[0].toLowerCase();
-                        player.sendMessage(GeneralLanguage.teleport_TELEPORT_TIMER);
-                        WarpPlugin.inst().getServer().getScheduler().runTaskLaterAsynchronously(WarpPlugin.inst(),
-                                () -> JClientWarpOutput.sendTeleportToWarpOut(player.getUniqueId(), warpName), (long) MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.TELEPORT_WARMUP);
+                        WarpPlugin.inst().getServer().getScheduler().runTaskAsynchronously(WarpPlugin.inst(),
+                                () -> JClientWarpOutput.sendTeleportToWarpOut(player.getUniqueId(), warpName));
                     } else {
                         sender.sendMessage(GeneralLanguage.warp_NO_WARP_ARGUMENT);
                     }
