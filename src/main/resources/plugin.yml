@@ -5,8 +5,7 @@ authors: [Kekshaus]
 main: de.linzn.mineSuite.warp.WarpPlugin
 load: POSTWORLD
 depend: [MineSuiteCore]
-
-
+api-version: 1.13
 commands:
   setwarp:
     description: Set a Warp.
